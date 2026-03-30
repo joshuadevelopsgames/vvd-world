@@ -1099,354 +1099,315 @@
   .board-svg-lines { position: absolute; inset: 0; pointer-events: none; }
 
   /* ===================================================
-     MINECRAFT THEME — App only (marketing unchanged)
+     GLASSY THEME — App UI
      =================================================== */
-  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
   :root {
-    --mc-dark: #111111;
-    --mc-stone: #4a4a4a;
-    --mc-stone-light: #888;
-    --mc-wood: #6b4c32;
-    --mc-grass: #7ac74c;
-    --mc-grass-dark: #3a6a1a;
-    --mc-gold: #ffaa00;
-    --mc-diamond: #44eff9;
-    --mc-redstone: #ff4444;
-    --mc-enchant: #8855ff;
-    --mc-yellow: #ffff55;
-    --font-mc: 'VT323', monospace;
+    --glass-bg: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.10);
+    --glass-hover: rgba(255,255,255,0.10);
+    --glass-active: rgba(255,255,255,0.14);
+    --accent: #6c8fff;
+    --accent-dim: rgba(108,143,255,0.16);
   }
 
   /* ── App shell ── */
-  .app-container {
-    background: #1a1a2a;
-    background-image:
-      radial-gradient(rgba(127,82,255,.04) 1px, transparent 1px);
-    background-size: 16px 16px;
-  }
+  .app-container { background: #0c0e14; }
 
   /* ── Header ── */
   .app-header {
-    background: linear-gradient(180deg,#2d2d2d 0%,#1c1c1c 100%);
-    border-bottom: 3px solid #000;
-    box-shadow: 0 3px 0 #555, 0 6px 0 #000;
+    background: rgba(10,12,20,0.78);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.03);
   }
   .app-header-logo {
-    font-family: var(--font-mc) !important;
-    font-size: 24px !important;
-    color: var(--mc-gold) !important;
-    text-shadow: 2px 2px 0 #7a4000, 0 0 18px rgba(255,170,0,.45) !important;
-    letter-spacing: 2px;
+    font-size: 18px !important;
+    color: #e8eaf6 !important;
+    letter-spacing: 0.3px;
   }
   .app-nav-btn {
-    font-family: var(--font-mc) !important;
     font-size: 13px !important;
-    letter-spacing: .5px;
-    background: linear-gradient(180deg,#4a4a4a 0%,#2a2a2a 100%) !important;
-    border: 2px solid #000 !important;
-    border-top-color: #6a6a6a !important;
-    border-left-color: #6a6a6a !important;
-    color: #ddd !important;
-    border-radius: 2px !important;
-    padding: 5px 10px !important;
-    text-shadow: 1px 1px 0 #000 !important;
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: rgba(255,255,255,0.6) !important;
+    border-radius: 8px !important;
+    padding: 5px 12px !important;
+    transition: all .15s !important;
   }
   .app-nav-btn:hover {
-    background: linear-gradient(180deg,#5a5a5a 0%,#3a3a3a 100%) !important;
-    color: var(--mc-yellow) !important;
+    background: var(--glass-hover) !important;
+    color: rgba(255,255,255,0.9) !important;
+    border-color: rgba(255,255,255,0.18) !important;
   }
   .app-nav-btn.active {
-    background: linear-gradient(180deg,var(--mc-grass) 0%,var(--mc-grass-dark) 100%) !important;
-    border-top-color: #9fe060 !important;
-    border-left-color: #9fe060 !important;
-    color: #fff !important;
+    background: var(--accent-dim) !important;
+    border-color: rgba(108,143,255,0.35) !important;
+    color: #a8c0ff !important;
   }
   .btn-worlds {
-    font-family: var(--font-mc) !important;
     font-size: 13px !important;
-    background: linear-gradient(180deg,#4a4a4a 0%,#2a2a2a 100%) !important;
-    border: 2px solid #000 !important;
-    border-top-color: #6a6a6a !important;
-    border-left-color: #6a6a6a !important;
-    color: #ddd !important;
-    border-radius: 2px !important;
-    text-shadow: 1px 1px 0 #000 !important;
-    letter-spacing: .5px;
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: rgba(255,255,255,0.6) !important;
+    border-radius: 8px !important;
+    transition: all .15s !important;
   }
-  .btn-worlds:hover { color: var(--mc-yellow) !important; }
+  .btn-worlds:hover {
+    background: var(--glass-hover) !important;
+    color: rgba(255,255,255,0.9) !important;
+  }
 
   /* ── Sidebar ── */
   .app-sidebar {
-    background: linear-gradient(180deg,#1f1f1f 0%,#2a2a2a 100%) !important;
-    border-right: 3px solid #000 !important;
-    box-shadow: 2px 0 0 #555 !important;
+    background: rgba(8,10,18,0.65) !important;
+    border-right: 1px solid rgba(255,255,255,0.07) !important;
+    box-shadow: none !important;
+    backdrop-filter: blur(12px);
     padding-bottom: 90px !important;
   }
   .sidebar-group-label {
-    font-family: var(--font-mc) !important;
-    color: #aaa !important;
-    font-size: 12px !important;
-    letter-spacing: 1px;
+    color: rgba(255,255,255,0.32) !important;
+    font-size: 11px !important;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
   }
   .sidebar-item {
-    background: rgba(30,30,30,.8) !important;
-    border: 2px solid #000 !important;
-    border-top-color: #555 !important;
-    border-left-color: #555 !important;
-    border-radius: 2px !important;
-    margin: 3px 8px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 8px !important;
+    margin: 2px 8px !important;
     padding: 7px 10px !important;
-    font-family: var(--font-mc) !important;
     font-size: 13px !important;
-    color: #ccc !important;
-    transition: all .08s !important;
+    color: rgba(255,255,255,0.58) !important;
+    transition: all .12s !important;
     display: flex !important; align-items: center !important; gap: 8px !important;
   }
   .sidebar-item:hover {
-    background: rgba(122,199,76,.18) !important;
-    border-top-color: var(--mc-grass) !important;
-    border-left-color: var(--mc-grass) !important;
-    color: var(--mc-yellow) !important;
-    padding-left: 10px !important;
+    background: var(--glass-hover) !important;
+    border-color: var(--glass-border) !important;
+    color: rgba(255,255,255,0.88) !important;
   }
   .sidebar-item.active {
-    background: rgba(122,199,76,.28) !important;
-    border-top-color: var(--mc-grass) !important;
-    border-left-color: var(--mc-grass) !important;
-    color: var(--mc-yellow) !important;
+    background: var(--accent-dim) !important;
+    border-color: rgba(108,143,255,0.3) !important;
+    color: #a8c0ff !important;
   }
 
-  /* ── Enchanted Search ── */
+  /* ── Search ── */
   .sidebar-search-input {
-    background: linear-gradient(135deg,rgba(136,85,255,.12),rgba(68,239,249,.06)) !important;
-    border: 2px solid var(--mc-enchant) !important;
-    border-radius: 2px !important;
-    color: #e0d4ff !important;
-    font-family: var(--font-mc) !important;
-    font-size: 14px !important;
-    letter-spacing: .5px;
-    animation: enchantPulse 2.4s ease-in-out infinite !important;
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 8px !important;
+    color: rgba(255,255,255,0.85) !important;
+    font-size: 13px !important;
   }
-  .sidebar-search-input::placeholder { color: #8855ff88 !important; }
+  .sidebar-search-input::placeholder { color: rgba(255,255,255,0.22) !important; }
   .sidebar-search-input:focus {
-    border-color: var(--mc-diamond) !important;
-    box-shadow: 0 0 14px rgba(136,85,255,.5), 0 0 6px rgba(68,239,249,.3) !important;
-    background: linear-gradient(135deg,rgba(136,85,255,.22),rgba(68,239,249,.1)) !important;
+    border-color: rgba(108,143,255,0.5) !important;
+    box-shadow: 0 0 0 3px rgba(108,143,255,0.10) !important;
     outline: none !important;
-  }
-  @keyframes enchantPulse {
-    0%,100% { box-shadow: 0 0 6px rgba(136,85,255,.3); }
-    50%       { box-shadow: 0 0 14px rgba(136,85,255,.6), 0 0 6px rgba(68,239,249,.2); }
+    background: rgba(255,255,255,0.08) !important;
   }
 
   /* ── Hotbar ── */
   .mc-hotbar {
-    position: fixed; bottom: 14px; left: 50%;
+    position: fixed; bottom: 16px; left: 50%;
     transform: translateX(-50%);
-    display: flex; gap: 3px;
+    display: flex; gap: 4px;
     z-index: 200;
-    background: rgba(8,8,8,.88);
-    border: 3px solid #555;
-    border-top-color: #888; border-left-color: #888;
-    border-radius: 3px; padding: 4px;
-    box-shadow: 0 4px 0 #000, inset 0 1px 0 rgba(255,255,255,.08);
-    backdrop-filter: blur(8px);
+    background: rgba(8,10,20,0.75);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 18px; padding: 6px 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px) saturate(160%);
   }
   .hotbar-slot {
-    width: 50px; height: 50px;
-    background: linear-gradient(135deg,#2a2a2a,#1a1a1a);
-    border: 2px solid #000;
-    border-top-color: #555; border-left-color: #555;
-    border-radius: 2px;
+    width: 48px; height: 48px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    cursor: pointer; gap: 1px;
-    position: relative; transition: all .08s;
+    cursor: pointer; gap: 2px;
+    position: relative; transition: all .15s;
     user-select: none;
   }
   .hotbar-slot:hover {
-    background: linear-gradient(135deg,#3a3a3a,#2a2a2a);
-    border-top-color: #888; border-left-color: #888;
+    background: rgba(255,255,255,0.10);
+    border-color: rgba(255,255,255,0.18);
   }
   .hotbar-slot.active {
-    background: linear-gradient(135deg,#3a5a1a,#264a12);
-    border-top-color: var(--mc-grass); border-left-color: var(--mc-grass);
-    box-shadow: 0 0 12px rgba(122,199,76,.35), inset 0 0 8px rgba(122,199,76,.1);
+    background: rgba(108,143,255,0.16);
+    border-color: rgba(108,143,255,0.4);
+    box-shadow: 0 0 14px rgba(108,143,255,0.22), inset 0 0 8px rgba(108,143,255,0.06);
   }
   .hotbar-icon { font-size: 20px; line-height: 1; }
-  .hotbar-label {
-    font-family: var(--font-mc); font-size: 8px; color: #888; line-height: 1;
-  }
-  .hotbar-slot.active .hotbar-label { color: var(--mc-grass); }
-  .hotbar-num {
-    position: absolute; top: 2px; left: 4px;
-    font-family: var(--font-mc); font-size: 8px; color: #555;
-  }
+  .hotbar-label { font-size: 8px; color: rgba(255,255,255,0.38); line-height: 1; }
+  .hotbar-slot.active .hotbar-label { color: #a8c0ff; }
+  .hotbar-num { position: absolute; top: 2px; left: 4px; font-size: 8px; color: rgba(255,255,255,0.18); }
 
   /* ── Achievement Toast ── */
   .mc-achievement {
     position: fixed; top: 76px; right: -380px;
-    width: 310px;
-    background: linear-gradient(135deg,#1a1a1a,#262626);
-    border: 3px solid #000;
-    border-top-color: #555; border-left-color: #555;
-    border-radius: 3px; padding: 10px 14px;
+    width: 300px;
+    background: rgba(14,18,32,0.90);
+    border: 1px solid rgba(255,255,255,0.11);
+    border-radius: 14px; padding: 13px 16px;
     z-index: 1000;
     transition: right .55s cubic-bezier(.34,1.56,.64,1);
-    box-shadow: 4px 4px 0 rgba(0,0,0,.6);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
   }
   .mc-achievement.show { right: 16px; }
   .mc-ach-header {
-    font-family: var(--font-mc); font-size: 11px;
-    color: var(--mc-gold); letter-spacing: 1px; margin-bottom: 5px;
-    text-shadow: 1px 1px 0 #7a4000;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px;
+    color: rgba(168,192,255,0.7); margin-bottom: 6px;
   }
-  .mc-ach-body { display: flex; gap: 10px; align-items: center; }
+  .mc-ach-body { display: flex; gap: 12px; align-items: center; }
   .mc-ach-icon {
-    width: 46px; height: 46px; flex-shrink: 0;
-    background: linear-gradient(135deg,#3a3a3a,#222);
-    border: 2px solid #555; border-radius: 2px;
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: rgba(108,143,255,0.10);
+    border: 1px solid rgba(108,143,255,0.28); border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 26px;
+    font-size: 24px;
   }
-  .mc-ach-title {
-    font-family: var(--font-mc); font-size: 16px;
-    color: var(--mc-yellow); text-shadow: 1px 1px 0 #7a7a00;
-  }
-  .mc-ach-desc {
-    font-family: var(--font-mc); font-size: 12px; color: #aaa; margin-top: 2px;
-  }
+  .mc-ach-title { font-size: 14px; font-weight: 600; color: #e8eaf6; }
+  .mc-ach-desc { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px; }
 
   /* ── Music Player Widget ── */
   .mc-music-player {
-    position: fixed; top: 12px; right: 16px; z-index: 500;
-    display: flex; align-items: center; gap: 5px;
-    background: rgba(14,14,14,0.88);
-    border: 2px solid #000;
-    border-top-color: #3a3a3a; border-left-color: #3a3a3a;
-    border-radius: 2px; padding: 4px 8px 4px 7px;
-    font-family: var(--font-mc); font-size: 13px; color: #ccc;
-    backdrop-filter: blur(8px);
-    box-shadow: 3px 3px 0 rgba(0,0,0,.55);
-    transition: background .2s;
+    position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+    z-index: 500;
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(10,12,22,0.78);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 20px; padding: 5px 10px 5px 9px;
+    font-size: 13px; color: rgba(255,255,255,0.7);
+    backdrop-filter: blur(16px) saturate(160%);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    transition: background .2s, box-shadow .2s;
     user-select: none;
+    white-space: nowrap;
   }
-  .mc-music-player:hover { background: rgba(26,26,26,0.96); }
+  .mc-music-player:hover {
+    background: rgba(18,22,38,0.90);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  }
   .mc-music-note {
-    color: var(--mc-diamond, #44c4d0);
-    font-size: 15px; flex-shrink: 0;
-    animation: musicBob 1.4s ease-in-out infinite;
-    display: inline-block;
+    color: #a8c0ff; font-size: 14px; flex-shrink: 0;
+    animation: musicBob 1.4s ease-in-out infinite; display: inline-block;
   }
   @keyframes musicBob {
     0%,100% { transform: translateY(0); }
     50%      { transform: translateY(-2px); }
   }
-  .mc-music-player.muted .mc-music-note { animation: none; color: #444; }
-  .mc-music-player.muted .mc-music-track-name { color: #444; }
+  .mc-music-player.muted .mc-music-note { animation: none; color: rgba(255,255,255,0.18); }
+  .mc-music-player.muted .mc-music-track-name { color: rgba(255,255,255,0.18); }
   .mc-music-track-name {
-    max-width: 138px; overflow: hidden;
+    max-width: 140px; overflow: hidden;
     white-space: nowrap; text-overflow: ellipsis;
-    font-size: 12px; color: #999;
-    transition: color .2s;
+    font-size: 12px; color: rgba(255,255,255,0.48); transition: color .2s;
   }
   .mc-music-btn {
-    background: none; border: none; color: #666; cursor: pointer;
-    font-size: 13px; padding: 0 2px; line-height: 1;
-    transition: color .15s; flex-shrink: 0;
+    background: none; border: none; color: rgba(255,255,255,0.32); cursor: pointer;
+    font-size: 13px; padding: 0 2px; line-height: 1; transition: color .15s; flex-shrink: 0;
   }
-  .mc-music-btn:hover { color: #ddd; }
+  .mc-music-btn:hover { color: rgba(255,255,255,0.85); }
 
-  /* ── Crafting Table Modal ── */
+  /* ── Entry Creation Modal ── */
   .crafting-modal {
     display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,.88);
+    background: rgba(0,0,0,0.60);
+    backdrop-filter: blur(8px);
     z-index: 400; align-items: center; justify-content: center;
   }
   .crafting-modal.active { display: flex; }
   .crafting-table {
-    background: linear-gradient(180deg,#7d5c39 0%,#5c4027 100%);
-    border: 4px solid #000;
-    border-top-color: #a07a50; border-left-color: #a07a50;
-    border-radius: 3px; padding: 24px;
+    background: rgba(12,16,28,0.94);
+    border: 1px solid rgba(255,255,255,0.11);
+    border-radius: 18px; padding: 28px;
     width: 440px; max-width: 95vw;
-    box-shadow: 8px 8px 0 rgba(0,0,0,.65);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05);
+    backdrop-filter: blur(24px) saturate(160%);
     position: relative;
-    animation: craftPop .25s cubic-bezier(.34,1.56,.64,1);
+    animation: craftPop .22s cubic-bezier(.34,1.56,.64,1);
   }
-  @keyframes craftPop { from { transform: scale(.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes craftPop { from { transform: scale(.93); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   .craft-title {
-    font-family: var(--font-mc); font-size: 22px;
-    color: #ffe0a0; text-align: center; margin-bottom: 18px;
-    text-shadow: 2px 2px 0 #5c2a00; letter-spacing: 1px;
+    font-size: 19px; font-weight: 600;
+    color: #e8eaf6; text-align: center; margin-bottom: 20px; letter-spacing: 0.2px;
   }
   .craft-label {
-    font-family: var(--font-mc); font-size: 12px; color: #c8a060;
-    margin-bottom: 6px; letter-spacing: .5px;
+    font-size: 11px; color: rgba(255,255,255,0.38);
+    margin-bottom: 6px; letter-spacing: 0.6px; text-transform: uppercase;
   }
   .craft-input {
-    width: 100%; padding: 9px 12px;
-    background: linear-gradient(135deg,#1a0a00,#100800);
-    border: 2px solid #000;
-    border-bottom-color: #555; border-right-color: #555;
-    color: var(--mc-yellow); font-family: var(--font-mc);
-    font-size: 16px; letter-spacing: 1px; margin-bottom: 16px;
-    display: block;
+    width: 100%; padding: 10px 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.11);
+    border-radius: 10px;
+    color: rgba(255,255,255,0.9); font-size: 15px; margin-bottom: 18px;
+    display: block; transition: border-color .15s;
   }
-  .craft-input:focus { outline: none; border-bottom-color: var(--mc-grass); border-right-color: var(--mc-grass); }
-  .craft-input::placeholder { color: #5a3a1a; }
+  .craft-input:focus { outline: none; border-color: rgba(108,143,255,0.5); box-shadow: 0 0 0 3px rgba(108,143,255,0.10); }
+  .craft-input::placeholder { color: rgba(255,255,255,0.20); }
   .craft-type-grid {
-    display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-bottom: 18px;
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 20px;
   }
   .craft-type-btn {
-    background: linear-gradient(180deg,#4a4a4a 0%,#2a2a2a 100%);
-    border: 2px solid #000;
-    border-top-color: #6a6a6a; border-left-color: #6a6a6a;
-    border-radius: 2px; padding: 10px 4px;
-    cursor: pointer; font-family: var(--font-mc); font-size: 11px;
-    color: #ccc; text-align: center; text-shadow: 1px 1px 0 #000;
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-    transition: all .08s;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 12px; padding: 12px 6px;
+    cursor: pointer; font-size: 12px;
+    color: rgba(255,255,255,0.55); text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    transition: all .15s;
   }
-  .craft-type-btn:hover { color: var(--mc-yellow); }
+  .craft-type-btn:hover {
+    background: rgba(255,255,255,0.10);
+    border-color: rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.88);
+  }
   .craft-type-btn.selected {
-    background: linear-gradient(180deg,var(--mc-grass) 0%,var(--mc-grass-dark) 100%);
-    border-top-color: #9fe060; border-left-color: #9fe060; color: #fff;
+    background: rgba(108,143,255,0.16);
+    border-color: rgba(108,143,255,0.4); color: #a8c0ff;
   }
   .craft-type-icon { font-size: 22px; }
   .craft-btn {
     width: 100%;
-    background: linear-gradient(180deg,var(--mc-grass) 0%,var(--mc-grass-dark) 100%);
-    border: 3px solid #000;
-    border-top-color: #9fe060; border-left-color: #9fe060;
-    border-radius: 2px; color: #fff;
-    font-family: var(--font-mc); font-size: 18px;
-    letter-spacing: 1px; padding: 12px;
-    cursor: pointer; text-shadow: 1px 1px 0 #1a3a0a;
-    transition: all .08s;
+    background: rgba(108,143,255,0.18);
+    border: 1px solid rgba(108,143,255,0.38);
+    border-radius: 12px; color: #c0d0ff;
+    font-size: 15px; font-weight: 600; padding: 13px;
+    cursor: pointer; transition: all .15s; letter-spacing: 0.2px;
   }
-  .craft-btn:hover { color: var(--mc-yellow); }
+  .craft-btn:hover {
+    background: rgba(108,143,255,0.28);
+    border-color: rgba(108,143,255,0.6); color: #e0eaff;
+  }
   .craft-close {
-    position: absolute; top: 10px; right: 12px;
-    background: none; border: none;
-    color: #a07a50; cursor: pointer;
-    font-family: var(--font-mc); font-size: 22px;
+    position: absolute; top: 14px; right: 16px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10);
+    width: 28px; height: 28px; border-radius: 50%;
+    color: rgba(255,255,255,0.45); cursor: pointer;
+    font-size: 14px; display: flex; align-items: center; justify-content: center;
+    transition: all .15s;
   }
-  .craft-close:hover { color: #ff5555; }
+  .craft-close:hover { background: rgba(255,60,60,0.18); border-color: rgba(255,60,60,0.35); color: #ffaaaa; }
 
   /* ── App content bottom padding for hotbar ── */
-  .app-content { padding-bottom: 80px !important; }
+  .app-content { padding-bottom: 88px !important; }
 
-  /* ── Minecraft scrollbars ── */
+  /* ── Clean scrollbars ── */
   .app-sidebar::-webkit-scrollbar,
-  .app-content::-webkit-scrollbar { width: 6px; }
+  .app-content::-webkit-scrollbar { width: 4px; }
   .app-sidebar::-webkit-scrollbar-track,
-  .app-content::-webkit-scrollbar-track { background: #111; }
+  .app-content::-webkit-scrollbar-track { background: transparent; }
   .app-sidebar::-webkit-scrollbar-thumb,
-  .app-content::-webkit-scrollbar-thumb { background: #555; border-radius: 1px; }
+  .app-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
   .app-sidebar::-webkit-scrollbar-thumb:hover,
-  .app-content::-webkit-scrollbar-thumb:hover { background: var(--mc-grass); }
+  .app-content::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
 
   /* ════ FEATURE 1: BIOME ENVIRONMENT ════ */
   .app-container {
@@ -1488,70 +1449,7 @@
     --accent: #3d7ab5;
   }
 
-  #biome-particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
-  }
-
-  .biome-particle {
-    position: absolute;
-    animation: biomeFloat 8s linear infinite;
-  }
-
-  .biome-particle.nether {
-    background: radial-gradient(circle, #ff6633, #cc4411);
-    border-radius: 50%;
-    opacity: 0.6;
-  }
-
-  .biome-particle.forest {
-    background: radial-gradient(circle, #4a8a3a, #2a5a1a);
-    border-radius: 50%;
-    opacity: 0.4;
-  }
-
-  .biome-particle.ocean {
-    background: radial-gradient(circle, #3a7ab5, #1a4a7a);
-    border-radius: 50%;
-    opacity: 0.3;
-  }
-
-  .biome-particle.desert {
-    background: radial-gradient(circle, #c9a84c, #a87a2a);
-    border-radius: 50%;
-    opacity: 0.35;
-  }
-
-  .biome-particle.tundra {
-    background: radial-gradient(circle, #8ac9e8, #5a99b8);
-    border-radius: 50%;
-    opacity: 0.4;
-  }
-
-  .biome-particle.cave {
-    background: radial-gradient(circle, #9a7ab5, #6a4a8a);
-    border-radius: 50%;
-    opacity: 0.25;
-  }
-
-  .biome-particle.end {
-    background: radial-gradient(circle, #d57ab5, #9a3a8a);
-    border-radius: 50%;
-    opacity: 0.45;
-  }
-
-  @keyframes biomeFloat {
-    0% { transform: translateY(-10px) translateX(0); opacity: 0; }
-    10% { opacity: 0.6; }
-    90% { opacity: 0.6; }
-    100% { transform: translateY(100vh) translateX(50px); opacity: 0; }
-  }
+  #biome-particles { display: none; }
 
   /* ════ FEATURE 2: WEATHER OVERLAY ════ */
   #weather-overlay {
@@ -2597,12 +2495,12 @@
 <div id="entry-type-modal" class="crafting-modal">
   <div class="crafting-table">
     <button class="craft-close" onclick="closeEntryTypeModal()">✕</button>
-    <div class="craft-title">⚒ Crafting Table</div>
+    <div class="craft-title">New Entry</div>
     <div class="craft-label">Entry Name</div>
     <input type="text" id="entry-name-input" class="craft-input" placeholder="Name your creation...">
     <div class="craft-label">Choose Type</div>
     <div class="craft-type-grid" id="type-grid"></div>
-    <button class="craft-btn" onclick="createEntryFromModal()">⚒ Craft Entry</button>
+    <button class="craft-btn" onclick="createEntryFromModal()">Create Entry</button>
   </div>
 </div>
 
@@ -3807,11 +3705,9 @@ function clearBoard() {
    MINECRAFT FEATURES
    ============================================= */
 
-// ── Block Sounds (Real Minecraft Audio via assets.mcasset.cloud) ──
+// ── UI Sounds (achievement + error only) ──
 const mcAudio = (function() {
   const CDN = 'https://assets.mcasset.cloud/1.21.11/assets/minecraft/sounds/';
-  const STONE = ['dig/stone1','dig/stone2','dig/stone3','dig/stone4'];
-
   function play(path, vol) {
     try {
       const a = new Audio(CDN + path + '.ogg');
@@ -3819,40 +3715,15 @@ const mcAudio = (function() {
       a.play().catch(() => {});
     } catch(e) {}
   }
-  function rnd(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
   return {
-    // Light UI click — for marketing/menu page navigation
-    menuClick()   { play('random/click_stereo', 0.35); },
-    // In-app general UI click (tabs, options, selections)
-    click()       { play('random/click_stereo', 0.5); },
-    // Hotbar / view navigation — satisfying stone-block thunk
-    place()       { play(rnd(STONE), 0.55); },
-    // Entry creation — iconic chest creak
-    openChest()   { play('block/chest/open', 0.7); },
-    // Achievement toast — Minecraft challenge-complete fanfare
     achievement() { play('ui/toast/challenge_complete', 0.75); },
-    // Error / invalid action — player hurt impact
     error()       { play('damage/hit1', 0.45); }
   };
 })();
 
-// Attach in-app click sound to all interactions inside the app
-document.addEventListener('click', e => {
-  const inApp = e.target.closest('#app-container');
-  if (inApp) mcAudio.click();
-}, true);
-
-// Attach lighter menu click sound to marketing/landing page interactions
-document.addEventListener('click', e => {
-  if (e.target.closest('#app-container')) return;
-  if (e.target.closest('button, a, [onclick], .feature-tab, label')) mcAudio.menuClick();
-}, true);
-
 // ── Hotbar ──
 const hotbarMap = ['home','world','map','wiki','quill','timeline','graph','scenes','board'];
 function hotbarClick(view, el) {
-  mcAudio.place();
   document.querySelectorAll('.hotbar-slot').forEach(s => s.classList.remove('active'));
   el.classList.add('active');
   switchView(view);
@@ -3930,7 +3801,6 @@ function checkAchievements() {
 const _origCreateEntry = createEntryFromModal;
 window.createEntryFromModal = function() {
   _origCreateEntry();
-  mcAudio.openChest();
   setTimeout(checkAchievements, 200);
 };
 
@@ -3970,7 +3840,6 @@ window.showEntryTypeModal = function() {
 };
 
 function selectCraftType(type, el) {
-  mcAudio.click();
   document.querySelectorAll('.craft-type-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
   selectedType = type;
@@ -4035,8 +3904,6 @@ function setBiome(biome) {
   const container = document.getElementById('app-container');
   container.className = container.className.replace(/biome-\w+/, '');
   container.classList.add('biome-' + biome);
-
-  createBiomeParticles(biome);
 }
 
 function createBiomeParticles(biome) {
