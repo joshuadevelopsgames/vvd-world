@@ -1469,7 +1469,7 @@
     <p>Join thousands of creators building extraordinary worlds.</p>
     <div class="cta-buttons">
       <button class="btn-primary" onclick="showApp()">Create a World Now</button>
-      <button class="btn-secondary">Watch Demo</button>
+      <button class="btn-secondary" onclick="document.querySelector('.features').scrollIntoView({behavior:'smooth'})">Watch Demo</button>
     </div>
   </section>
 
@@ -1855,6 +1855,18 @@ let graphPhysicsRunning = false;
 let graphSelectedNode = null;
 let boardLineMode = false;
 let boardLineStart = null;
+
+function setFeatureTab(el, tab) {
+  document.querySelectorAll('.feature-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const demoDisplay = { editor: 'grid', map: 'block', graph: 'block', wiki: 'grid', collab: 'block' };
+  Object.keys(demoDisplay).forEach(d => {
+    const panel = document.getElementById(d + '-demo');
+    if (panel) panel.style.display = 'none';
+  });
+  const target = document.getElementById(tab + '-demo');
+  if (target) target.style.display = demoDisplay[tab] || 'block';
+}
 
 function showApp() {
   document.getElementById('marketing-page').style.display = 'none';
