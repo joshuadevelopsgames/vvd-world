@@ -1097,6 +1097,317 @@
   .color-swatch { width: 40px; height: 40px; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: all .2s; }
   .color-swatch:hover { border-color: white; }
   .board-svg-lines { position: absolute; inset: 0; pointer-events: none; }
+
+  /* ===================================================
+     MINECRAFT THEME — App only (marketing unchanged)
+     =================================================== */
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+  :root {
+    --mc-dark: #111111;
+    --mc-stone: #4a4a4a;
+    --mc-stone-light: #888;
+    --mc-wood: #6b4c32;
+    --mc-grass: #7ac74c;
+    --mc-grass-dark: #3a6a1a;
+    --mc-gold: #ffaa00;
+    --mc-diamond: #44eff9;
+    --mc-redstone: #ff4444;
+    --mc-enchant: #8855ff;
+    --mc-yellow: #ffff55;
+    --font-mc: 'VT323', monospace;
+  }
+
+  /* ── App shell ── */
+  .app-container {
+    background: #1a1a2a;
+    background-image:
+      radial-gradient(rgba(127,82,255,.04) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  /* ── Header ── */
+  .app-header {
+    background: linear-gradient(180deg,#2d2d2d 0%,#1c1c1c 100%);
+    border-bottom: 3px solid #000;
+    box-shadow: 0 3px 0 #555, 0 6px 0 #000;
+  }
+  .app-header-logo {
+    font-family: var(--font-mc) !important;
+    font-size: 24px !important;
+    color: var(--mc-gold) !important;
+    text-shadow: 2px 2px 0 #7a4000, 0 0 18px rgba(255,170,0,.45) !important;
+    letter-spacing: 2px;
+  }
+  .app-nav-btn {
+    font-family: var(--font-mc) !important;
+    font-size: 13px !important;
+    letter-spacing: .5px;
+    background: linear-gradient(180deg,#4a4a4a 0%,#2a2a2a 100%) !important;
+    border: 2px solid #000 !important;
+    border-top-color: #6a6a6a !important;
+    border-left-color: #6a6a6a !important;
+    color: #ddd !important;
+    border-radius: 2px !important;
+    padding: 5px 10px !important;
+    text-shadow: 1px 1px 0 #000 !important;
+  }
+  .app-nav-btn:hover {
+    background: linear-gradient(180deg,#5a5a5a 0%,#3a3a3a 100%) !important;
+    color: var(--mc-yellow) !important;
+  }
+  .app-nav-btn.active {
+    background: linear-gradient(180deg,var(--mc-grass) 0%,var(--mc-grass-dark) 100%) !important;
+    border-top-color: #9fe060 !important;
+    border-left-color: #9fe060 !important;
+    color: #fff !important;
+  }
+  .btn-worlds {
+    font-family: var(--font-mc) !important;
+    font-size: 13px !important;
+    background: linear-gradient(180deg,#4a4a4a 0%,#2a2a2a 100%) !important;
+    border: 2px solid #000 !important;
+    border-top-color: #6a6a6a !important;
+    border-left-color: #6a6a6a !important;
+    color: #ddd !important;
+    border-radius: 2px !important;
+    text-shadow: 1px 1px 0 #000 !important;
+    letter-spacing: .5px;
+  }
+  .btn-worlds:hover { color: var(--mc-yellow) !important; }
+
+  /* ── Sidebar ── */
+  .app-sidebar {
+    background: linear-gradient(180deg,#1f1f1f 0%,#2a2a2a 100%) !important;
+    border-right: 3px solid #000 !important;
+    box-shadow: 2px 0 0 #555 !important;
+    padding-bottom: 90px !important;
+  }
+  .sidebar-group-label {
+    font-family: var(--font-mc) !important;
+    color: #aaa !important;
+    font-size: 12px !important;
+    letter-spacing: 1px;
+  }
+  .sidebar-item {
+    background: rgba(30,30,30,.8) !important;
+    border: 2px solid #000 !important;
+    border-top-color: #555 !important;
+    border-left-color: #555 !important;
+    border-radius: 2px !important;
+    margin: 3px 8px !important;
+    padding: 7px 10px !important;
+    font-family: var(--font-mc) !important;
+    font-size: 13px !important;
+    color: #ccc !important;
+    transition: all .08s !important;
+    display: flex !important; align-items: center !important; gap: 8px !important;
+  }
+  .sidebar-item:hover {
+    background: rgba(122,199,76,.18) !important;
+    border-top-color: var(--mc-grass) !important;
+    border-left-color: var(--mc-grass) !important;
+    color: var(--mc-yellow) !important;
+    padding-left: 10px !important;
+  }
+  .sidebar-item.active {
+    background: rgba(122,199,76,.28) !important;
+    border-top-color: var(--mc-grass) !important;
+    border-left-color: var(--mc-grass) !important;
+    color: var(--mc-yellow) !important;
+  }
+
+  /* ── Enchanted Search ── */
+  .sidebar-search-input {
+    background: linear-gradient(135deg,rgba(136,85,255,.12),rgba(68,239,249,.06)) !important;
+    border: 2px solid var(--mc-enchant) !important;
+    border-radius: 2px !important;
+    color: #e0d4ff !important;
+    font-family: var(--font-mc) !important;
+    font-size: 14px !important;
+    letter-spacing: .5px;
+    animation: enchantPulse 2.4s ease-in-out infinite !important;
+  }
+  .sidebar-search-input::placeholder { color: #8855ff88 !important; }
+  .sidebar-search-input:focus {
+    border-color: var(--mc-diamond) !important;
+    box-shadow: 0 0 14px rgba(136,85,255,.5), 0 0 6px rgba(68,239,249,.3) !important;
+    background: linear-gradient(135deg,rgba(136,85,255,.22),rgba(68,239,249,.1)) !important;
+    outline: none !important;
+  }
+  @keyframes enchantPulse {
+    0%,100% { box-shadow: 0 0 6px rgba(136,85,255,.3); }
+    50%       { box-shadow: 0 0 14px rgba(136,85,255,.6), 0 0 6px rgba(68,239,249,.2); }
+  }
+
+  /* ── Hotbar ── */
+  .mc-hotbar {
+    position: fixed; bottom: 14px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 3px;
+    z-index: 200;
+    background: rgba(8,8,8,.88);
+    border: 3px solid #555;
+    border-top-color: #888; border-left-color: #888;
+    border-radius: 3px; padding: 4px;
+    box-shadow: 0 4px 0 #000, inset 0 1px 0 rgba(255,255,255,.08);
+    backdrop-filter: blur(8px);
+  }
+  .hotbar-slot {
+    width: 50px; height: 50px;
+    background: linear-gradient(135deg,#2a2a2a,#1a1a1a);
+    border: 2px solid #000;
+    border-top-color: #555; border-left-color: #555;
+    border-radius: 2px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    cursor: pointer; gap: 1px;
+    position: relative; transition: all .08s;
+    user-select: none;
+  }
+  .hotbar-slot:hover {
+    background: linear-gradient(135deg,#3a3a3a,#2a2a2a);
+    border-top-color: #888; border-left-color: #888;
+  }
+  .hotbar-slot.active {
+    background: linear-gradient(135deg,#3a5a1a,#264a12);
+    border-top-color: var(--mc-grass); border-left-color: var(--mc-grass);
+    box-shadow: 0 0 12px rgba(122,199,76,.35), inset 0 0 8px rgba(122,199,76,.1);
+  }
+  .hotbar-icon { font-size: 20px; line-height: 1; }
+  .hotbar-label {
+    font-family: var(--font-mc); font-size: 8px; color: #888; line-height: 1;
+  }
+  .hotbar-slot.active .hotbar-label { color: var(--mc-grass); }
+  .hotbar-num {
+    position: absolute; top: 2px; left: 4px;
+    font-family: var(--font-mc); font-size: 8px; color: #555;
+  }
+
+  /* ── Achievement Toast ── */
+  .mc-achievement {
+    position: fixed; top: 76px; right: -380px;
+    width: 310px;
+    background: linear-gradient(135deg,#1a1a1a,#262626);
+    border: 3px solid #000;
+    border-top-color: #555; border-left-color: #555;
+    border-radius: 3px; padding: 10px 14px;
+    z-index: 1000;
+    transition: right .55s cubic-bezier(.34,1.56,.64,1);
+    box-shadow: 4px 4px 0 rgba(0,0,0,.6);
+  }
+  .mc-achievement.show { right: 16px; }
+  .mc-ach-header {
+    font-family: var(--font-mc); font-size: 11px;
+    color: var(--mc-gold); letter-spacing: 1px; margin-bottom: 5px;
+    text-shadow: 1px 1px 0 #7a4000;
+  }
+  .mc-ach-body { display: flex; gap: 10px; align-items: center; }
+  .mc-ach-icon {
+    width: 46px; height: 46px; flex-shrink: 0;
+    background: linear-gradient(135deg,#3a3a3a,#222);
+    border: 2px solid #555; border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+  }
+  .mc-ach-title {
+    font-family: var(--font-mc); font-size: 16px;
+    color: var(--mc-yellow); text-shadow: 1px 1px 0 #7a7a00;
+  }
+  .mc-ach-desc {
+    font-family: var(--font-mc); font-size: 12px; color: #aaa; margin-top: 2px;
+  }
+
+  /* ── Crafting Table Modal ── */
+  .crafting-modal {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.88);
+    z-index: 400; align-items: center; justify-content: center;
+  }
+  .crafting-modal.active { display: flex; }
+  .crafting-table {
+    background: linear-gradient(180deg,#7d5c39 0%,#5c4027 100%);
+    border: 4px solid #000;
+    border-top-color: #a07a50; border-left-color: #a07a50;
+    border-radius: 3px; padding: 24px;
+    width: 440px; max-width: 95vw;
+    box-shadow: 8px 8px 0 rgba(0,0,0,.65);
+    position: relative;
+    animation: craftPop .25s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes craftPop { from { transform: scale(.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .craft-title {
+    font-family: var(--font-mc); font-size: 22px;
+    color: #ffe0a0; text-align: center; margin-bottom: 18px;
+    text-shadow: 2px 2px 0 #5c2a00; letter-spacing: 1px;
+  }
+  .craft-label {
+    font-family: var(--font-mc); font-size: 12px; color: #c8a060;
+    margin-bottom: 6px; letter-spacing: .5px;
+  }
+  .craft-input {
+    width: 100%; padding: 9px 12px;
+    background: linear-gradient(135deg,#1a0a00,#100800);
+    border: 2px solid #000;
+    border-bottom-color: #555; border-right-color: #555;
+    color: var(--mc-yellow); font-family: var(--font-mc);
+    font-size: 16px; letter-spacing: 1px; margin-bottom: 16px;
+    display: block;
+  }
+  .craft-input:focus { outline: none; border-bottom-color: var(--mc-grass); border-right-color: var(--mc-grass); }
+  .craft-input::placeholder { color: #5a3a1a; }
+  .craft-type-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-bottom: 18px;
+  }
+  .craft-type-btn {
+    background: linear-gradient(180deg,#4a4a4a 0%,#2a2a2a 100%);
+    border: 2px solid #000;
+    border-top-color: #6a6a6a; border-left-color: #6a6a6a;
+    border-radius: 2px; padding: 10px 4px;
+    cursor: pointer; font-family: var(--font-mc); font-size: 11px;
+    color: #ccc; text-align: center; text-shadow: 1px 1px 0 #000;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    transition: all .08s;
+  }
+  .craft-type-btn:hover { color: var(--mc-yellow); }
+  .craft-type-btn.selected {
+    background: linear-gradient(180deg,var(--mc-grass) 0%,var(--mc-grass-dark) 100%);
+    border-top-color: #9fe060; border-left-color: #9fe060; color: #fff;
+  }
+  .craft-type-icon { font-size: 22px; }
+  .craft-btn {
+    width: 100%;
+    background: linear-gradient(180deg,var(--mc-grass) 0%,var(--mc-grass-dark) 100%);
+    border: 3px solid #000;
+    border-top-color: #9fe060; border-left-color: #9fe060;
+    border-radius: 2px; color: #fff;
+    font-family: var(--font-mc); font-size: 18px;
+    letter-spacing: 1px; padding: 12px;
+    cursor: pointer; text-shadow: 1px 1px 0 #1a3a0a;
+    transition: all .08s;
+  }
+  .craft-btn:hover { color: var(--mc-yellow); }
+  .craft-close {
+    position: absolute; top: 10px; right: 12px;
+    background: none; border: none;
+    color: #a07a50; cursor: pointer;
+    font-family: var(--font-mc); font-size: 22px;
+  }
+  .craft-close:hover { color: #ff5555; }
+
+  /* ── App content bottom padding for hotbar ── */
+  .app-content { padding-bottom: 80px !important; }
+
+  /* ── Minecraft scrollbars ── */
+  .app-sidebar::-webkit-scrollbar,
+  .app-content::-webkit-scrollbar { width: 6px; }
+  .app-sidebar::-webkit-scrollbar-track,
+  .app-content::-webkit-scrollbar-track { background: #111; }
+  .app-sidebar::-webkit-scrollbar-thumb,
+  .app-content::-webkit-scrollbar-thumb { background: #555; border-radius: 1px; }
+  .app-sidebar::-webkit-scrollbar-thumb:hover,
+  .app-content::-webkit-scrollbar-thumb:hover { background: var(--mc-grass); }
+
 </style>
 </head>
 <body>
@@ -1771,24 +2082,15 @@
   </div>
 </div>
 
-<div id="entry-type-modal" class="modal-overlay">
-  <div class="modal-content">
-    <div class="modal-header">New Entry</div>
-    <div class="modal-body">
-      <input type="text" id="entry-name-input" class="modal-input" placeholder="Entry name">
-      <div style="margin-bottom: 16px;">
-        <div style="font-size: 12px; color: var(--text2); margin-bottom: 8px; text-transform: uppercase; font-weight: 600;">Type</div>
-        <div class="type-grid" id="type-grid"></div>
-      </div>
-      <div style="margin-bottom: 16px;">
-        <div style="font-size: 12px; color: var(--text2); margin-bottom: 8px; text-transform: uppercase; font-weight: 600;">Template</div>
-        <div class="templates-grid" id="templates-grid"></div>
-      </div>
-    </div>
-    <div class="modal-buttons">
-      <button class="modal-btn modal-btn-secondary" onclick="closeEntryTypeModal()">Cancel</button>
-      <button class="modal-btn modal-btn-primary" onclick="createEntryFromModal()">Create</button>
-    </div>
+<div id="entry-type-modal" class="crafting-modal">
+  <div class="crafting-table">
+    <button class="craft-close" onclick="closeEntryTypeModal()">✕</button>
+    <div class="craft-title">⚒ Crafting Table</div>
+    <div class="craft-label">Entry Name</div>
+    <input type="text" id="entry-name-input" class="craft-input" placeholder="Name your creation...">
+    <div class="craft-label">Choose Type</div>
+    <div class="craft-type-grid" id="type-grid"></div>
+    <button class="craft-btn" onclick="createEntryFromModal()">⚒ Craft Entry</button>
   </div>
 </div>
 
@@ -2891,14 +3193,262 @@ function clearBoard() {
   }
 }
 
+/* =============================================
+   MINECRAFT FEATURES
+   ============================================= */
+
+// ── Block Sounds (Web Audio API) ──
+const mcAudio = (function() {
+  let ctx = null;
+  function getCtx() {
+    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+    return ctx;
+  }
+  function beep(freq, type, dur, vol, detune) {
+    try {
+      const c = getCtx();
+      const o = c.createOscillator();
+      const g = c.createGain();
+      o.connect(g); g.connect(c.destination);
+      o.type = type || 'square';
+      o.frequency.setValueAtTime(freq, c.currentTime);
+      if (detune) o.detune.setValueAtTime(detune, c.currentTime);
+      g.gain.setValueAtTime(vol || 0.08, c.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + (dur || 0.1));
+      o.start(c.currentTime);
+      o.stop(c.currentTime + (dur || 0.1));
+    } catch(e){}
+  }
+  return {
+    click()       { beep(440,'square',.05,.07); },
+    place()       { beep(220,'triangle',.12,.1); setTimeout(()=>beep(260,'triangle',.08,.07),60); },
+    openChest()   { beep(330,'sine',.08,.08); setTimeout(()=>beep(440,'sine',.1,.07),80); setTimeout(()=>beep(550,'sine',.12,.06),160); },
+    achievement() {
+      [523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,'sine',.18,.1),i*110));
+    },
+    error()       { beep(180,'sawtooth',.15,.06); setTimeout(()=>beep(150,'sawtooth',.15,.06),160); }
+  };
+})();
+
+// Attach click sound to all buttons inside app
+document.addEventListener('click', e => {
+  const inApp = e.target.closest('#app-container');
+  if (inApp) mcAudio.click();
+}, true);
+
+// ── Hotbar ──
+const hotbarMap = ['home','world','map','wiki','quill','timeline','graph','scenes','board'];
+function hotbarClick(view, el) {
+  mcAudio.place();
+  document.querySelectorAll('.hotbar-slot').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  switchView(view);
+  // sync nav buttons
+  document.querySelectorAll('.app-nav-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim().toLowerCase() === view);
+  });
+}
+
+// Sync hotbar when nav buttons are clicked
+const _origSwitchView = switchView;
+window.switchView = function(view) {
+  _origSwitchView(view);
+  const idx = hotbarMap.indexOf(view);
+  document.querySelectorAll('.hotbar-slot').forEach((s,i) => s.classList.toggle('active', i === idx));
+};
+
+// Keyboard 1-9 selects hotbar slot
+document.addEventListener('keydown', e => {
+  const n = parseInt(e.key);
+  if (n >= 1 && n <= 9 && !e.target.matches('input,textarea,[contenteditable]')) {
+    const slot = document.querySelectorAll('.hotbar-slot')[n-1];
+    if (slot) hotbarClick(hotbarMap[n-1], slot);
+  }
+});
+
+// ── Achievement System ──
+const _unlockedAch = new Set(JSON.parse(localStorage.getItem('mc_ach')||'[]'));
+function _saveAch() { localStorage.setItem('mc_ach', JSON.stringify([..._unlockedAch])); }
+
+const achievements = {
+  first_entry:     { icon:'📜', title:'First Blood',       desc:'Created your first entry' },
+  five_entries:    { icon:'⚔️',  title:'Adventurer',        desc:'5 entries in your world' },
+  ten_entries:     { icon:'🏰', title:'Kingdom Builder',    desc:'10 entries and counting' },
+  twenty_entries:  { icon:'👑', title:'World Builder',      desc:'20 entries — legendary!' },
+  first_doc:       { icon:'🪶', title:'The Scribe',         desc:'Wrote your first document' },
+  first_link:      { icon:'🔗', title:'Lore Weaver',        desc:'Connected two entries' },
+  first_map_pin:   { icon:'🗺️', title:'Cartographer',       desc:'Placed your first map pin' },
+  three_types:     { icon:'🎭', title:'World is Complex',   desc:'Used 3 different entry types' },
+  first_export:    { icon:'📦', title:'Exporter',           desc:'Exported your world data' },
+};
+
+function unlockAchievement(id) {
+  if (_unlockedAch.has(id)) return;
+  const ach = achievements[id];
+  if (!ach) return;
+  _unlockedAch.add(id);
+  _saveAch();
+  mcAudio.achievement();
+  const toast = document.getElementById('mc-achievement');
+  document.getElementById('mc-ach-icon').textContent  = ach.icon;
+  document.getElementById('mc-ach-title').textContent = ach.title;
+  document.getElementById('mc-ach-desc').textContent  = ach.desc;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 4000);
+}
+
+function checkAchievements() {
+  const entries = worldData.entries || [];
+  const n = entries.length;
+  if (n >= 1)  unlockAchievement('first_entry');
+  if (n >= 5)  unlockAchievement('five_entries');
+  if (n >= 10) unlockAchievement('ten_entries');
+  if (n >= 20) unlockAchievement('twenty_entries');
+  if ((worldData.documents||[]).length >= 1) unlockAchievement('first_doc');
+  const types = new Set(entries.map(e => e.type));
+  if (types.size >= 3) unlockAchievement('three_types');
+  const hasLinks = entries.some(e => e.links && e.links.length > 0);
+  if (hasLinks) unlockAchievement('first_link');
+  const hasPins = (worldData.mapPins||[]).length >= 1;
+  if (hasPins) unlockAchievement('first_map_pin');
+}
+
+// Hook into createEntryFromModal to trigger achievement check + chest sound
+const _origCreateEntry = createEntryFromModal;
+window.createEntryFromModal = function() {
+  _origCreateEntry();
+  mcAudio.openChest();
+  setTimeout(checkAchievements, 200);
+};
+
+// Hook export for achievement
+const _origExportJSON = exportAsJSON;
+window.exportAsJSON = function() { _origExportJSON(); unlockAchievement('first_export'); };
+
+// Hook map pin for achievement
+const _origRenderMap = renderMap;
+window.renderMap = function() {
+  _origRenderMap();
+  if ((worldData.mapPins||[]).length >= 1) unlockAchievement('first_map_pin');
+};
+
+// ── Override type-grid rendering to use Minecraft style ──
+const _origShowEntryTypeModal = showEntryTypeModal;
+window.showEntryTypeModal = function() {
+  document.getElementById('entry-type-modal').classList.add('active');
+  document.getElementById('entry-name-input').value = '';
+  // Rebuild type grid with MC style
+  const types = [
+    {id:'character', icon:'🧑', label:'Character'},
+    {id:'location',  icon:'🏔️', label:'Location'},
+    {id:'item',      icon:'⚔️',  label:'Item'},
+    {id:'creature',  icon:'🐉', label:'Creature'},
+    {id:'faction',   icon:'⚑',  label:'Faction'},
+    {id:'event',     icon:'⚡', label:'Event'},
+  ];
+  const grid = document.getElementById('type-grid');
+  grid.innerHTML = types.map(t =>
+    `<div class="craft-type-btn ${t.id==='character'?'selected':''}" onclick="selectCraftType('${t.id}',this)">
+      <span class="craft-type-icon">${t.icon}</span>${t.label}
+    </div>`
+  ).join('');
+  selectedType = 'character';
+  setTimeout(()=>document.getElementById('entry-name-input').focus(), 100);
+};
+
+function selectCraftType(type, el) {
+  mcAudio.click();
+  document.querySelectorAll('.craft-type-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedType = type;
+}
+
+// Override closeEntryTypeModal for crafting table
+window.closeEntryTypeModal = function() {
+  document.getElementById('entry-type-modal').classList.remove('active');
+};
+
+// Show hotbar only in app
+function syncHotbarVisibility() {
+  const inApp = document.getElementById('app-container').classList.contains('active');
+  document.getElementById('mc-hotbar').style.display = inApp ? 'flex' : 'none';
+  document.getElementById('mc-achievement').style.display = inApp ? '' : 'none';
+}
+const _origShowApp = showApp;
+window.showApp = function() { _origShowApp(); syncHotbarVisibility(); };
+const _origShowMarketing = showMarketing;
+window.showMarketing = function() { _origShowMarketing(); syncHotbarVisibility(); };
+
 document.addEventListener('DOMContentLoaded', () => {
   initializeGradients();
   populateWorldSwitcher();
   renderSidebar();
   showOnboardingModal();
+  syncHotbarVisibility();
 });
 </script>
 
+
+<!-- MINECRAFT HOTBAR -->
+<div class="mc-hotbar" id="mc-hotbar">
+  <div class="hotbar-slot active" onclick="hotbarClick('home',this)" title="Home">
+    <span class="hotbar-num">1</span>
+    <span class="hotbar-icon">🏠</span>
+    <span class="hotbar-label">Home</span>
+  </div>
+  <div class="hotbar-slot" onclick="hotbarClick('world',this)" title="World">
+    <span class="hotbar-num">2</span>
+    <span class="hotbar-icon">📖</span>
+    <span class="hotbar-label">World</span>
+  </div>
+  <div class="hotbar-slot" onclick="hotbarClick('map',this)" title="Map">
+    <span class="hotbar-num">3</span>
+    <span class="hotbar-icon">🗺️</span>
+    <span class="hotbar-label">Map</span>
+  </div>
+  <div class="hotbar-slot" onclick="hotbarClick('wiki',this)" title="Wiki">
+    <span class="hotbar-num">4</span>
+    <span class="hotbar-icon">📚</span>
+    <span class="hotbar-label">Wiki</span>
+  </div>
+  <div class="hotbar-slot" onclick="hotbarClick('quill',this)" title="Quill">
+    <span class="hotbar-num">5</span>
+    <span class="hotbar-icon">🪶</span>
+    <span class="hotbar-label">Quill</span>
+  </div>
+  <div class="hotbar-slot" onclick="hotbarClick('timeline',this)" title="Timeline">
+    <span class="hotbar-num">6</span>
+    <span class="hotbar-icon">⏳</span>
+    <span class="hotbar-label">Timeline</span>
+  </div>
+  <div class="hotbar-slot" onclick="hotbarClick('graph',this)" title="Graph">
+    <span class="hotbar-num">7</span>
+    <span class="hotbar-icon">🕸️</span>
+    <span class="hotbar-label">Graph</span>
+  </div>
+  <div class="hotbar-slot" onclick="hotbarClick('scenes',this)" title="Scenes">
+    <span class="hotbar-num">8</span>
+    <span class="hotbar-icon">🎬</span>
+    <span class="hotbar-label">Scenes</span>
+  </div>
+  <div class="hotbar-slot" onclick="hotbarClick('board',this)" title="Board">
+    <span class="hotbar-num">9</span>
+    <span class="hotbar-icon">📌</span>
+    <span class="hotbar-label">Board</span>
+  </div>
+</div>
+
+<!-- ACHIEVEMENT TOAST -->
+<div class="mc-achievement" id="mc-achievement">
+  <div class="mc-ach-header">⭐ Achievement Unlocked!</div>
+  <div class="mc-ach-body">
+    <div class="mc-ach-icon" id="mc-ach-icon">🏆</div>
+    <div>
+      <div class="mc-ach-title" id="mc-ach-title">First Steps</div>
+      <div class="mc-ach-desc" id="mc-ach-desc">You created your first entry</div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
