@@ -1785,6 +1785,105 @@
     width: 100%;
   }
 
+/* ── Entry Detail Redesign ── */
+.entry-detail .entry-gradient-thumb {
+  width: 120px; height: 120px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  display: flex; align-items: center; justify-content: center;
+  float: right; margin: 0 0 16px 20px;
+  flex-shrink: 0;
+}
+.entry-detail .entry-gradient-thumb svg {
+  width: 40px; height: 40px; opacity: 0.5;
+  stroke: white; fill: none; stroke-width: 1.5;
+}
+#entry-title {
+  font-family: Georgia, 'Times New Roman', serif !important;
+  font-size: 28px !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+  color: #e8edf2 !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+  width: 100% !important;
+  margin-bottom: 8px !important;
+  line-height: 1.2 !important;
+}
+.entry-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px !important;
+  border-radius: 5px !important;
+  padding: 3px 9px !important;
+  margin-bottom: 18px !important;
+}
+.property-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-bottom: 8px !important;
+  font-size: 13px;
+}
+.property-row input[type="text"] {
+  background: rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  border-radius: 6px !important;
+  color: rgba(255,255,255,0.85) !important;
+  padding: 4px 10px !important;
+  font-size: 12px !important;
+  transition: border-color .15s;
+}
+.property-row input[type="text"]:focus {
+  outline: none !important;
+  border-color: rgba(108,143,255,0.45) !important;
+}
+.property-row input[placeholder="Key"] {
+  width: 90px !important;
+  color: rgba(255,255,255,0.4) !important;
+}
+.tag-pill {
+  background: rgba(255,255,255,0.07) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 20px !important;
+  padding: 3px 10px !important;
+  font-size: 12px !important;
+  color: rgba(255,255,255,0.7) !important;
+}
+.link-chip {
+  background: rgba(108,143,255,0.12) !important;
+  border: 1px solid rgba(108,143,255,0.25) !important;
+  border-radius: 6px !important;
+  padding: 4px 10px !important;
+  font-size: 12px !important;
+  color: #a8c0ff !important;
+  cursor: pointer !important;
+}
+#entry-desc {
+  font-size: 13px !important;
+  line-height: 1.8 !important;
+  color: rgba(255,255,255,0.65) !important;
+  background: transparent !important;
+  border: none !important;
+  border-top: 1px solid rgba(255,255,255,0.07) !important;
+  border-radius: 0 !important;
+  padding: 14px 0 !important;
+  resize: none !important;
+  width: 100% !important;
+  min-height: 120px !important;
+  outline: none !important;
+}
+.properties-section-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: rgba(255,255,255,0.3);
+  margin: 14px 0 8px;
+}
+
 </style>
 </head>
 <body>
@@ -2532,9 +2631,9 @@ let worldData = {
     { id: 'shadowlands-creature', name: 'Shadowlands Wraith', type: 'creature', description: 'A being of pure shadow that haunts the darker regions of the Shadowlands.', properties: [{key: 'Threat Level', value: 'Extreme'}, {key: 'Habitat', value: 'Underground'}], tags: ['monster', 'shadow'], linkedEntries: [], imageGradient: 'linear-gradient(135deg, #2a2a4a, #1a1a2a)' }
   ],
   mapPins: [
-    { id: 'pin-1', x: 30, y: 20, label: 'Obsidian Tower', entryId: 'obsidian-tower', icon: '🏰' },
-    { id: 'pin-2', x: 60, y: 40, label: 'Deepwood Forest', entryId: 'deepwood-forest', icon: '🌲' },
-    { id: 'pin-3', x: 20, y: 70, label: 'Frostfire Village', entryId: 'frostfire-village', icon: '❄️' }
+    { id: 'pin-1', x: 30, y: 20, label: 'Obsidian Tower', entryId: 'obsidian-tower', icon: 'loc' },
+    { id: 'pin-2', x: 60, y: 40, label: 'Deepwood Forest', entryId: 'deepwood-forest', icon: 'loc' },
+    { id: 'pin-3', x: 20, y: 70, label: 'Frostfire Village', entryId: 'frostfire-village', icon: 'loc' }
   ],
   documents: [
     { id: 'doc-1', title: 'Shadow War Chronicles', content: 'The Shadow War began in the mists of time...', linkedEntries: ['shadow-war'] }
@@ -2641,6 +2740,15 @@ function switchView(view) {
   if (view === 'board') renderBoard();
 }
 
+const TYPE_ICONS = {
+  character: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:12px;height:12px;flex-shrink:0"><circle cx="8" cy="5" r="3"/><path d="M2 14a6 6 0 0112 0"/></svg>',
+  location:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:12px;height:12px;flex-shrink:0"><path d="M8 1a4 4 0 014 4c0 3-4 9-4 9S4 8 4 5a4 4 0 014-4z"/><circle cx="8" cy="5" r="1.5" fill="currentColor" stroke="none"/></svg>',
+  item:      '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:12px;height:12px;flex-shrink:0"><path d="M2 14L12 4"/><line x1="10" y1="2" x2="14" y2="6"/><line x1="6" y1="10" x2="4" y2="12"/></svg>',
+  creature:  '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:12px;height:12px;flex-shrink:0"><circle cx="8" cy="7" r="4"/><circle cx="6.5" cy="6.5" r=".75" fill="currentColor" stroke="none"/><circle cx="9.5" cy="6.5" r=".75" fill="currentColor" stroke="none"/><path d="M6 9.5c.5.5 1 .8 2 .8s1.5-.3 2-.8"/></svg>',
+  faction:   '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:12px;height:12px;flex-shrink:0"><line x1="3" y1="2" x2="3" y2="14"/><path d="M3 2l10 3-10 4"/></svg>',
+  event:     '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="width:12px;height:12px;flex-shrink:0"><path d="M9 1L3 9h6l-2 6 7-9H8l1-5z"/></svg>',
+};
+
 function renderSidebar() {
   const sidebar = document.getElementById('sidebar-entries');
   sidebar.innerHTML = '';
@@ -2685,7 +2793,10 @@ function renderSidebar() {
       entriesByFolder[box.id].forEach(e => {
         const item = document.createElement('div');
         item.className = 'sidebar-item';
-        item.textContent = e.name;
+        item.innerHTML = (TYPE_ICONS[e.type] || '') + e.name;
+        item.style.display = 'flex';
+        item.style.alignItems = 'center';
+        item.style.gap = '6px';
         item.onclick = () => selectEntry(e.id);
         itemsDiv.appendChild(item);
       });
@@ -2706,11 +2817,20 @@ function renderSidebar() {
     Object.keys(types).sort().forEach(type => {
       const section = document.createElement('div');
       section.className = 'sidebar-section';
-      section.innerHTML = '<div class="sidebar-group-label">' + type + 's</div>';
+      const labelDiv = document.createElement('div');
+      labelDiv.className = 'sidebar-group-label';
+      labelDiv.style.display = 'flex';
+      labelDiv.style.alignItems = 'center';
+      labelDiv.style.gap = '6px';
+      labelDiv.innerHTML = (TYPE_ICONS[type] || '') + type + 's';
+      section.appendChild(labelDiv);
       types[type].forEach(e => {
         const item = document.createElement('div');
         item.className = 'sidebar-item';
-        item.textContent = e.name;
+        item.innerHTML = (TYPE_ICONS[e.type] || '') + e.name;
+        item.style.display = 'flex';
+        item.style.alignItems = 'center';
+        item.style.gap = '6px';
         item.onclick = () => selectEntry(e.id);
         section.appendChild(item);
       });
@@ -2724,7 +2844,10 @@ function selectEntry(entryId) {
   if (!currentEntry) return;
 
   const thumb = document.getElementById('entry-gradient-thumb');
-  if (thumb) thumb.style.background = currentEntry.imageGradient;
+  if (thumb) {
+    thumb.style.background = currentEntry.imageGradient;
+    thumb.innerHTML = TYPE_ICONS[currentEntry.type] || '';
+  }
   if (!currentEntry) return;
 
   document.getElementById('entry-detail').style.display = 'block';
@@ -2904,7 +3027,7 @@ document.getElementById('world-map')?.addEventListener('click', (e) => {
   const y = ((e.clientY - rect.top) / rect.height) * 100;
   const label = prompt('Pin name:');
   if (label) {
-    worldData.mapPins.push({id: 'pin-' + Date.now(), x, y, label, entryId: null, icon: '📍'});
+    worldData.mapPins.push({id: 'pin-' + Date.now(), x, y, label, entryId: null, icon: 'loc'});
     renderMap();
     mapAddMode = false;
     document.getElementById('map-mode-indicator').textContent = '';
@@ -3255,7 +3378,24 @@ function renderGraph() {
     });
   });
 
-  const typeColors = {character: '#4a9a8c', location: '#3d7ab5', item: '#c9a84c', event: '#c0392b', faction: '#8a5a9a', creature: '#5a8a3a'};
+  const typeColors = {character: '#3d6b4a', location: '#3a5a8a', item: '#8a6a3a', creature: '#6a3a3a', faction: '#5a3a7a', event: '#8a4a3a'};
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  const typeAbbr = {character: 'CH', location: 'LO', item: 'IT', creature: 'CR', faction: 'FA', event: 'EV'};
+
   let animationFrame = null;
   const simulate = () => {
     ctx.fillStyle = 'rgba(0,0,0,0.3)';
@@ -3302,7 +3442,7 @@ function renderGraph() {
       ctx.strokeStyle = 'rgba(255, 51, 51, 0.8)';
       ctx.lineWidth = 2;
     } else {
-      ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+      ctx.strokeStyle = 'rgba(255,255,255,0.12)';
       ctx.lineWidth = 1;
     }
     edges.forEach(e => {
@@ -3327,16 +3467,27 @@ function renderGraph() {
       }
 
       ctx.fillStyle = nodeColor;
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, 8, 0, Math.PI * 2);
+      roundRect(ctx, n.x - 24, n.y - 24, 48, 48, 6);
       ctx.fill();
+
+      ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+      ctx.lineWidth = 1;
+      roundRect(ctx, n.x - 24, n.y - 24, 48, 48, 6);
+      ctx.stroke();
 
       ctx.shadowBlur = 0;
 
-      ctx.fillStyle = 'var(--text)';
-      ctx.font = '11px var(--font-body)';
+      ctx.fillStyle = 'white';
+      ctx.font = '600 12px Space Grotesk, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(n.name.substring(0, 8), n.x, n.y + 20);
+      ctx.textBaseline = 'middle';
+      ctx.fillText(typeAbbr[n.type] || '??', n.x, n.y);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.7)';
+      ctx.font = '10px Space Grotesk, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(n.name.substring(0, 12), n.x, n.y + 28);
     });
 
     animationFrame = requestAnimationFrame(simulate);
@@ -3755,15 +3906,15 @@ const _unlockedAch = new Set(JSON.parse(localStorage.getItem('mc_ach')||'[]'));
 function _saveAch() { localStorage.setItem('mc_ach', JSON.stringify([..._unlockedAch])); }
 
 const achievements = {
-  first_entry:     { icon:'📜', title:'First Blood',       desc:'Created your first entry' },
-  five_entries:    { icon:'⚔️',  title:'Adventurer',        desc:'5 entries in your world' },
-  ten_entries:     { icon:'🏰', title:'Kingdom Builder',    desc:'10 entries and counting' },
-  twenty_entries:  { icon:'👑', title:'World Builder',      desc:'20 entries — legendary!' },
-  first_doc:       { icon:'🪶', title:'The Scribe',         desc:'Wrote your first document' },
-  first_link:      { icon:'🔗', title:'Lore Weaver',        desc:'Connected two entries' },
-  first_map_pin:   { icon:'🗺️', title:'Cartographer',       desc:'Placed your first map pin' },
-  three_types:     { icon:'🎭', title:'World is Complex',   desc:'Used 3 different entry types' },
-  first_export:    { icon:'📦', title:'Exporter',           desc:'Exported your world data' },
+  first_entry:    { icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="1" width="12" height="14" rx="1.5"/><line x1="5" y1="5.5" x2="11" y2="5.5"/><line x1="5" y1="8.5" x2="11" y2="8.5"/><line x1="5" y1="11.5" x2="8" y2="11.5"/></svg>', title:'First Entry', desc:'Created your first entry' },
+  five_entries:   { icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1l2 4 4.5.6-3.25 3.17.77 4.47L8 11l-4.02 2.24.77-4.47L1.5 5.6 6 5z"/></svg>', title:'Adventurer', desc:'5 entries in your world' },
+  ten_entries:    { icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="10" height="11" rx="1"/><path d="M5 4V3a3 3 0 016 0v1"/><line x1="6" y1="8" x2="10" y2="8"/><line x1="6" y1="11" x2="10" y2="11"/></svg>', title:'Kingdom Builder', desc:'10 entries and counting' },
+  twenty_entries: { icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l1.5 3 3 .4-2.2 2.1.5 3L8 9l-2.8 1.5.5-3L3.5 5.4 6.5 5z"/><line x1="3" y1="14" x2="13" y2="14"/></svg>', title:'World Builder', desc:'20 entries — legendary!' },
+  first_doc:      { icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 2a3 3 0 012 4.5L8 13l-4 1 1-4 5.5-8z"/></svg>', title:'The Scribe', desc:'Wrote your first document' },
+  first_link:     { icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 9.5a3.5 3.5 0 005 0l2-2a3.5 3.5 0 00-5-5l-1 1"/><path d="M9.5 6.5a3.5 3.5 0 00-5 0l-2 2a3.5 3.5 0 005 5l1-1"/></svg>', title:'Lore Weaver', desc:'Connected two entries' },
+  first_map_pin:  { icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 1a4 4 0 014 4c0 3-4 9-4 9S4 8 4 5a4 4 0 014-4z"/><circle cx="8" cy="5" r="1.5" fill="currentColor" stroke="none"/></svg>', title:'Cartographer', desc:'Placed your first map pin' },
+  three_types:    { icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="10" width="14" height="4" rx="1"/><rect x="2" y="6" width="12" height="4" rx="1"/><rect x="3" y="2" width="10" height="4" rx="1"/></svg>', title:'World is Complex', desc:'Used 3 different entry types' },
+  first_export:   { icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1v8M5 6l3 3 3-3"/><path d="M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2"/></svg>', title:'Exporter', desc:'Exported your world data' },
 };
 
 function unlockAchievement(id) {
@@ -3774,7 +3925,7 @@ function unlockAchievement(id) {
   _saveAch();
   mcAudio.achievement();
   const toast = document.getElementById('mc-achievement');
-  document.getElementById('mc-ach-icon').textContent  = ach.icon;
+  document.getElementById('mc-ach-icon').innerHTML  = ach.icon;
   document.getElementById('mc-ach-title').textContent = ach.title;
   document.getElementById('mc-ach-desc').textContent  = ach.desc;
   toast.classList.add('show');
@@ -3822,12 +3973,12 @@ window.showEntryTypeModal = function() {
   document.getElementById('entry-name-input').value = '';
   // Rebuild type grid with MC style
   const types = [
-    {id:'character', icon:'🧑', label:'Character'},
-    {id:'location',  icon:'🏔️', label:'Location'},
-    {id:'item',      icon:'⚔️',  label:'Item'},
-    {id:'creature',  icon:'🐉', label:'Creature'},
-    {id:'faction',   icon:'⚑',  label:'Faction'},
-    {id:'event',     icon:'⚡', label:'Event'},
+    {id:'character', icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="5" r="3"/><path d="M2 14a6 6 0 0112 0"/></svg>', label:'Character'},
+    {id:'location',  icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 14L6 5l3 5 2-2 4 6H1z"/></svg>', label:'Location'},
+    {id:'item',      icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 14L12 4M10 2l4 4M6 10l-4 4"/><line x1="11" y1="5" x2="13" y2="3"/></svg>', label:'Item'},
+    {id:'creature',  icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10c0-3 2-6 5-6s5 3 5 6"/><path d="M6 10c-.5 1-1.5 2-3 3"/><path d="M10 10c.5 1 1.5 2 3 3"/><path d="M8 4V2"/><circle cx="6" cy="8" r=".75" fill="currentColor" stroke="none"/><circle cx="10" cy="8" r=".75" fill="currentColor" stroke="none"/></svg>', label:'Creature'},
+    {id:'faction',   icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="2" x2="3" y2="14"/><path d="M3 2l10 3-10 4"/></svg>', label:'Faction'},
+    {id:'event',     icon:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 1L3 9h6l-2 6 7-9H8l1-5z"/></svg>', label:'Event'},
   ];
   const grid = document.getElementById('type-grid');
   grid.innerHTML = types.map(t =>
@@ -4236,64 +4387,64 @@ function updateFolderSelects() {
 <div class="mc-hotbar" id="mc-hotbar">
   <div class="hotbar-slot active" onclick="hotbarClick('home',this)" title="Home">
     <span class="hotbar-num">1</span>
-    <span class="hotbar-icon">🏠</span>
+    <span class="hotbar-icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 7.5L8 2l6.5 5.5V14H10v-4H6v4H1.5z"/></svg></span>
     <span class="hotbar-label">Home</span>
   </div>
   <div class="hotbar-slot" onclick="hotbarClick('world',this)" title="World">
     <span class="hotbar-num">2</span>
-    <span class="hotbar-icon">📖</span>
+    <span class="hotbar-icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 2h8a1 1 0 011 1v10a1 1 0 01-1 1H3"/><path d="M3 2a1 1 0 000 12"/><line x1="8" y1="2" x2="8" y2="14"/></svg></span>
     <span class="hotbar-label">World</span>
   </div>
   <div class="hotbar-slot" onclick="hotbarClick('map',this)" title="Map">
     <span class="hotbar-num">3</span>
-    <span class="hotbar-icon">🗺️</span>
+    <span class="hotbar-icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="1,3 6,4.5 10,2.5 15,4 15,13 10,11.5 6,13.5 1,12"/><line x1="6" y1="4.5" x2="6" y2="13.5"/><line x1="10" y1="2.5" x2="10" y2="11.5"/></svg></span>
     <span class="hotbar-label">Map</span>
   </div>
   <div class="hotbar-slot" onclick="hotbarClick('wiki',this)" title="Wiki">
     <span class="hotbar-num">4</span>
-    <span class="hotbar-icon">📚</span>
+    <span class="hotbar-icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="1" width="12" height="14" rx="1.5"/><line x1="5" y1="5.5" x2="11" y2="5.5"/><line x1="5" y1="8.5" x2="11" y2="8.5"/><line x1="5" y1="11.5" x2="8" y2="11.5"/></svg></span>
     <span class="hotbar-label">Wiki</span>
   </div>
   <div class="hotbar-slot" onclick="hotbarClick('quill',this)" title="Quill">
     <span class="hotbar-num">5</span>
-    <span class="hotbar-icon">🪶</span>
+    <span class="hotbar-icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 2a3 3 0 012 4.5L8 13l-4 1 1-4 5.5-8z"/></svg></span>
     <span class="hotbar-label">Quill</span>
   </div>
   <div class="hotbar-slot" onclick="hotbarClick('timeline',this)" title="Timeline">
     <span class="hotbar-num">6</span>
-    <span class="hotbar-icon">⏳</span>
+    <span class="hotbar-icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="1" y1="9" x2="15" y2="9"/><circle cx="4" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="8" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="9" r="1.5" fill="currentColor" stroke="none"/><line x1="4" y1="6" x2="4" y2="9"/><line x1="8" y1="4" x2="8" y2="9"/><line x1="12" y1="7" x2="12" y2="9"/></svg></span>
     <span class="hotbar-label">Timeline</span>
   </div>
   <div class="hotbar-slot" onclick="hotbarClick('graph',this)" title="Graph">
     <span class="hotbar-num">7</span>
-    <span class="hotbar-icon">🕸️</span>
+    <span class="hotbar-icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="2"/><circle cx="2" cy="3.5" r="1.5"/><circle cx="14" cy="3.5" r="1.5"/><circle cx="2" cy="12.5" r="1.5"/><circle cx="14" cy="12.5" r="1.5"/><line x1="3.3" y1="4.5" x2="6.5" y2="6.8"/><line x1="12.7" y1="4.5" x2="9.5" y2="6.8"/><line x1="3.3" y1="11.5" x2="6.5" y2="9.2"/><line x1="12.7" y1="11.5" x2="9.5" y2="9.2"/></svg></span>
     <span class="hotbar-label">Graph</span>
   </div>
   <div class="hotbar-slot" onclick="hotbarClick('scenes',this)" title="Scenes">
     <span class="hotbar-num">8</span>
-    <span class="hotbar-icon">🎬</span>
+    <span class="hotbar-icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="14" height="10" rx="1"/><line x1="1" y1="8.5" x2="15" y2="8.5"/><line x1="5.5" y1="5" x2="4" y2="1.5"/><line x1="9" y1="5" x2="7.5" y2="1.5"/><line x1="12.5" y1="5" x2="11" y2="1.5"/></svg></span>
     <span class="hotbar-label">Scenes</span>
   </div>
   <div class="hotbar-slot" onclick="hotbarClick('board',this)" title="Board">
     <span class="hotbar-num">9</span>
-    <span class="hotbar-icon">📌</span>
+    <span class="hotbar-icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="14" height="14" rx="1.5"/><line x1="1" y1="5" x2="15" y2="5"/><line x1="6" y1="5" x2="6" y2="15"/><line x1="11" y1="5" x2="11" y2="15"/></svg></span>
     <span class="hotbar-label">Board</span>
   </div>
 </div>
 
 <!-- MUSIC PLAYER WIDGET -->
 <div id="mc-music-player" class="mc-music-player" title="Minecraft background music">
-  <span class="mc-music-note">♫</span>
+  <span class="mc-music-note"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 12V5l7-2v7"/><circle cx="4.5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="11.5" cy="10" r="1.5" fill="currentColor" stroke="none"/></svg></span>
   <span class="mc-music-track-name" id="mc-music-track-name">Click anywhere to play</span>
-  <button class="mc-music-btn" onclick="mcMusicSkip()" title="Next track">⏭</button>
-  <button class="mc-music-btn" id="mc-music-mute-btn" onclick="mcMusicToggleMute()" title="Mute / Unmute">🔊</button>
+  <button class="mc-music-btn" onclick="mcMusicSkip()" title="Next track"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 3v10l5-5-5-5zm5 0v10l5-5-5-5z"/><rect x="12.5" y="3" width="1.5" height="10" rx=".75"/></svg></button>
+  <button class="mc-music-btn" id="mc-music-mute-btn" onclick="mcMusicToggleMute()" title="Mute / Unmute"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 6H5L9 3v10L5 10H2z" fill="currentColor" stroke="none"/><path d="M11 5a4 4 0 010 6"/><path d="M13 3a7 7 0 010 10"/></svg></button>
 </div>
 
 <!-- ACHIEVEMENT TOAST -->
 <div class="mc-achievement" id="mc-achievement">
-  <div class="mc-ach-header">⭐ Achievement Unlocked!</div>
+  <div class="mc-ach-header">Achievement Unlocked!</div>
   <div class="mc-ach-body">
-    <div class="mc-ach-icon" id="mc-ach-icon">🏆</div>
+    <div class="mc-ach-icon" id="mc-ach-icon"></div>
     <div>
       <div class="mc-ach-title" id="mc-ach-title">First Steps</div>
       <div class="mc-ach-desc" id="mc-ach-desc">You created your first entry</div>
@@ -4365,7 +4516,7 @@ function updateFolderSelects() {
   function updateMuteBtn() {
     const btn = document.getElementById('mc-music-mute-btn');
     const player = document.getElementById('mc-music-player');
-    if (btn) btn.textContent = muted ? '🔇' : '🔊';
+    if (btn) btn.innerHTML = muted ? '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 6H5L9 3v10L5 10H2z" fill="currentColor" stroke="none"/><path d="M12 6l2.5 4M14.5 6L12 10"/></svg>' : '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 6H5L9 3v10L5 10H2z" fill="currentColor" stroke="none"/><path d="M11 5a4 4 0 010 6"/><path d="M13 3a7 7 0 010 10"/></svg>';
     if (player) player.classList.toggle('muted', muted);
   }
 
