@@ -1318,6 +1318,46 @@
     font-family: var(--font-mc); font-size: 12px; color: #aaa; margin-top: 2px;
   }
 
+  /* ── Music Player Widget ── */
+  .mc-music-player {
+    position: fixed; top: 12px; right: 16px; z-index: 500;
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(14,14,14,0.88);
+    border: 2px solid #000;
+    border-top-color: #3a3a3a; border-left-color: #3a3a3a;
+    border-radius: 2px; padding: 4px 8px 4px 7px;
+    font-family: var(--font-mc); font-size: 13px; color: #ccc;
+    backdrop-filter: blur(8px);
+    box-shadow: 3px 3px 0 rgba(0,0,0,.55);
+    transition: background .2s;
+    user-select: none;
+  }
+  .mc-music-player:hover { background: rgba(26,26,26,0.96); }
+  .mc-music-note {
+    color: var(--mc-diamond, #44c4d0);
+    font-size: 15px; flex-shrink: 0;
+    animation: musicBob 1.4s ease-in-out infinite;
+    display: inline-block;
+  }
+  @keyframes musicBob {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-2px); }
+  }
+  .mc-music-player.muted .mc-music-note { animation: none; color: #444; }
+  .mc-music-player.muted .mc-music-track-name { color: #444; }
+  .mc-music-track-name {
+    max-width: 138px; overflow: hidden;
+    white-space: nowrap; text-overflow: ellipsis;
+    font-size: 12px; color: #999;
+    transition: color .2s;
+  }
+  .mc-music-btn {
+    background: none; border: none; color: #666; cursor: pointer;
+    font-size: 13px; padding: 0 2px; line-height: 1;
+    transition: color .15s; flex-shrink: 0;
+  }
+  .mc-music-btn:hover { color: #ddd; }
+
   /* ── Crafting Table Modal ── */
   .crafting-modal {
     display: none; position: fixed; inset: 0;
@@ -4374,6 +4414,14 @@ function updateFolderSelects() {
   </div>
 </div>
 
+<!-- MUSIC PLAYER WIDGET -->
+<div id="mc-music-player" class="mc-music-player" title="Minecraft background music">
+  <span class="mc-music-note">♫</span>
+  <span class="mc-music-track-name" id="mc-music-track-name">Click anywhere to play</span>
+  <button class="mc-music-btn" onclick="mcMusicSkip()" title="Next track">⏭</button>
+  <button class="mc-music-btn" id="mc-music-mute-btn" onclick="mcMusicToggleMute()" title="Mute / Unmute">🔊</button>
+</div>
+
 <!-- ACHIEVEMENT TOAST -->
 <div class="mc-achievement" id="mc-achievement">
   <div class="mc-ach-header">⭐ Achievement Unlocked!</div>
@@ -4386,5 +4434,143 @@ function updateFolderSelects() {
   </div>
 </div>
 
+
+<script>
+/* ── Minecraft Background Music Player ── */
+(function() {
+  const CDN = 'https://assets.mcasset.cloud/1.21.11/assets/minecraft/sounds/';
+  const MUSIC_VOL = 0.32;
+
+  const TRACKS = [
+    { path: 'music/game/sweden',              name: 'Sweden' },
+    { path: 'music/game/wet_hands',           name: 'Wet Hands' },
+    { path: 'music/game/minecraft',           name: 'Minecraft' },
+    { path: 'music/game/haggstrom',           name: 'Haggstrom' },
+    { path: 'music/game/living_mice',         name: 'Living Mice' },
+    { path: 'music/game/mice_on_venus',       name: 'Mice on Venus' },
+    { path: 'music/game/dry_hands',           name: 'Dry Hands' },
+    { path: 'music/game/key',                 name: 'Key' },
+    { path: 'music/game/danny',               name: 'Danny' },
+    { path: 'music/game/clark',               name: 'Clark' },
+    { path: 'music/game/subwoofer_lullaby',   name: 'Subwoofer Lullaby' },
+    { path: 'music/game/oxygene',             name: 'Oxygene' },
+    { path: 'music/game/a_familiar_room',     name: 'A Familiar Room' },
+    { path: 'music/game/broken_clocks',       name: 'Broken Clocks' },
+    { path: 'music/game/fireflies',           name: 'Fireflies' },
+    { path: 'music/game/featherfall',         name: 'Featherfall' },
+    { path: 'music/game/komorebi',            name: 'Komorebi' },
+    { path: 'music/game/left_to_bloom',       name: 'Left to Bloom' },
+    { path: 'music/game/lilypad',             name: 'Lilypad' },
+    { path: 'music/game/floating_dream',      name: 'Floating Dream' },
+    { path: 'music/game/watcher',             name: 'Watcher' },
+    { path: 'music/game/one_more_day',        name: 'One More Day' },
+    { path: 'music/game/os_piano',            name: 'OS Piano' },
+    { path: 'music/game/puzzlebox',           name: 'Puzzlebox' },
+    { path: 'music/game/yakusoku',            name: 'Yakusoku' },
+    { path: 'music/game/below_and_above',     name: 'Below and Above' },
+    { path: 'music/game/comforting_memories', name: 'Comforting Memories' },
+    { path: 'music/menu/beginning_2',         name: 'Beginning 2' },
+    { path: 'music/menu/floating_trees',      name: 'Floating Trees' },
+    { path: 'music/menu/moog_city_2',         name: 'Moog City 2' },
+    { path: 'music/menu/mutation',            name: 'Mutation' },
+  ];
+
+  let playlist = [];
+  let idx = 0;
+  let audio = null;
+  let muted = false;
+  let started = false;
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function setTrackLabel(name) {
+    const el = document.getElementById('mc-music-track-name');
+    if (el) el.textContent = name;
+  }
+
+  function updateMuteBtn() {
+    const btn = document.getElementById('mc-music-mute-btn');
+    const player = document.getElementById('mc-music-player');
+    if (btn) btn.textContent = muted ? '🔇' : '🔊';
+    if (player) player.classList.toggle('muted', muted);
+  }
+
+  function fadeOut(aud, cb) {
+    if (!aud) { cb && cb(); return; }
+    const step = aud.volume / 20;
+    const iv = setInterval(() => {
+      if (aud.volume > step) {
+        aud.volume = Math.max(0, aud.volume - step);
+      } else {
+        aud.volume = 0;
+        aud.pause();
+        clearInterval(iv);
+        cb && cb();
+      }
+    }, 50);
+  }
+
+  function playIdx(i) {
+    idx = ((i % playlist.length) + playlist.length) % playlist.length;
+    const track = playlist[idx];
+
+    const prev = audio;
+    audio = new Audio(CDN + track.path + '.ogg');
+    audio.volume = muted ? 0 : MUSIC_VOL;
+
+    audio.addEventListener('canplay', () => {
+      fadeOut(prev, () => { audio.play().catch(() => {}); });
+      setTrackLabel(track.name);
+    }, { once: true });
+
+    // fallback: if canplay fires late or not at all
+    audio.addEventListener('error', () => {
+      setTimeout(() => playIdx(idx + 1), 2000);
+    }, { once: true });
+
+    audio.addEventListener('ended', () => {
+      setTimeout(() => playIdx(idx + 1), 1200);
+    });
+
+    audio.load();
+  }
+
+  function start() {
+    if (started) return;
+    started = true;
+    playlist = shuffle(TRACKS);
+    playIdx(0);
+  }
+
+  // Begin on first user interaction (browser autoplay policy)
+  function onFirst() {
+    start();
+    document.removeEventListener('click',   onFirst, true);
+    document.removeEventListener('keydown', onFirst, true);
+    document.removeEventListener('scroll',  onFirst, true);
+  }
+  document.addEventListener('click',   onFirst, true);
+  document.addEventListener('keydown', onFirst, true);
+  document.addEventListener('scroll',  onFirst, true);
+
+  // Global controls wired to the widget buttons
+  window.mcMusicSkip = function() {
+    fadeOut(audio, () => playIdx(idx + 1));
+  };
+  window.mcMusicToggleMute = function() {
+    muted = !muted;
+    if (audio) audio.volume = muted ? 0 : MUSIC_VOL;
+    updateMuteBtn();
+    if (!started) start(); // tapping mute also kicks off playback
+  };
+})();
+</script>
 </body>
 </html>
