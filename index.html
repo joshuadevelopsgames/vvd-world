@@ -1408,6 +1408,445 @@
   .app-sidebar::-webkit-scrollbar-thumb:hover,
   .app-content::-webkit-scrollbar-thumb:hover { background: var(--mc-grass); }
 
+  /* ════ FEATURE 1: BIOME ENVIRONMENT ════ */
+  .app-container {
+    transition: background-color 0.8s ease;
+    background-color: #000000;
+  }
+
+  /* Biome backgrounds */
+  .app-container.biome-nether {
+    background: linear-gradient(180deg, #4a1a0a, #1a0a00);
+    --accent: #ff5533;
+  }
+  .app-container.biome-forest {
+    background: linear-gradient(180deg, #1a4a2a, #0a3a1a);
+    --accent: #4e9a8c;
+  }
+  .app-container.biome-ocean {
+    background: linear-gradient(180deg, #0a2a5a, #001a3a);
+    --accent: #3a7ab5;
+  }
+  .app-container.biome-desert {
+    background: linear-gradient(180deg, #5a4a2a, #3a2a0a);
+    --accent: #c9a84c;
+  }
+  .app-container.biome-tundra {
+    background: linear-gradient(180deg, #3a5a7a, #1a3a5a);
+    --accent: #8ac9e8;
+  }
+  .app-container.biome-cave {
+    background: linear-gradient(180deg, #1a1a3a, #0a0a1a);
+    --accent: #9a7ab5;
+  }
+  .app-container.biome-end {
+    background: linear-gradient(180deg, #3a1a5a, #1a0a2a);
+    --accent: #b57ab5;
+  }
+  .app-container.biome-overworld {
+    background: linear-gradient(180deg, #1a3a5a, #0a1a2a);
+    --accent: #3d7ab5;
+  }
+
+  #biome-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .biome-particle {
+    position: absolute;
+    animation: biomeFloat 8s linear infinite;
+  }
+
+  .biome-particle.nether {
+    background: radial-gradient(circle, #ff6633, #cc4411);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+
+  .biome-particle.forest {
+    background: radial-gradient(circle, #4a8a3a, #2a5a1a);
+    border-radius: 50%;
+    opacity: 0.4;
+  }
+
+  .biome-particle.ocean {
+    background: radial-gradient(circle, #3a7ab5, #1a4a7a);
+    border-radius: 50%;
+    opacity: 0.3;
+  }
+
+  .biome-particle.desert {
+    background: radial-gradient(circle, #c9a84c, #a87a2a);
+    border-radius: 50%;
+    opacity: 0.35;
+  }
+
+  .biome-particle.tundra {
+    background: radial-gradient(circle, #8ac9e8, #5a99b8);
+    border-radius: 50%;
+    opacity: 0.4;
+  }
+
+  .biome-particle.cave {
+    background: radial-gradient(circle, #9a7ab5, #6a4a8a);
+    border-radius: 50%;
+    opacity: 0.25;
+  }
+
+  .biome-particle.end {
+    background: radial-gradient(circle, #d57ab5, #9a3a8a);
+    border-radius: 50%;
+    opacity: 0.45;
+  }
+
+  @keyframes biomeFloat {
+    0% { transform: translateY(-10px) translateX(0); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(100vh) translateX(50px); opacity: 0; }
+  }
+
+  /* ════ FEATURE 2: WEATHER OVERLAY ════ */
+  #weather-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    display: none;
+    overflow: hidden;
+  }
+
+  #weather-overlay.active {
+    display: block;
+  }
+
+  #weather-overlay.rain {
+    background: rgba(50, 50, 50, 0.3);
+  }
+
+  #weather-overlay.snow {
+    background: rgba(200, 200, 255, 0.1);
+  }
+
+  .rain-drop {
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: rgba(200, 220, 255, 0.6);
+    opacity: 0.8;
+    animation: rainFall 1.2s linear infinite;
+    transform: skewY(-20deg);
+  }
+
+  @keyframes rainFall {
+    0% { transform: translateY(-100vh) skewY(-20deg); }
+    100% { transform: translateY(100vh) skewY(-20deg); }
+  }
+
+  .snow-flake {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    animation: snowFall 6s linear infinite;
+  }
+
+  @keyframes snowFall {
+    0% { transform: translateY(-100vh) translateX(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) translateX(100px) rotate(360deg); opacity: 0; }
+  }
+
+  .weather-toggle-btn {
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 12px;
+    font-family: var(--font-body);
+    transition: all 0.2s;
+  }
+
+  .weather-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .weather-toggle-btn.active {
+    background: rgba(61, 122, 181, 0.3);
+    border-color: rgba(61, 122, 181, 0.5);
+  }
+
+  /* ════ FEATURE 3: HUNGER BAR ════ */
+  .hunger-bar-container {
+    margin-top: 16px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+  }
+
+  .hunger-bar-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text2);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .hunger-icons {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+    min-height: 24px;
+  }
+
+  .hunger-drumstick {
+    font-size: 18px;
+    display: inline-block;
+    transition: opacity 0.15s, filter 0.15s;
+  }
+
+  .hunger-drumstick.empty {
+    opacity: 0.2;
+  }
+
+  .hunger-drumstick.warning {
+    animation: hungerFlicker 0.4s ease-in-out infinite;
+  }
+
+  @keyframes hungerFlicker {
+    0%, 100% { opacity: 1; filter: brightness(1); }
+    50% { opacity: 0.5; filter: brightness(1.5); }
+  }
+
+  .hunger-message {
+    font-size: 11px;
+    color: var(--text2);
+    font-style: italic;
+    margin-top: 8px;
+  }
+
+  .hunger-message.warning {
+    color: #ff5555;
+    font-weight: 600;
+  }
+
+  .hunger-message.full {
+    color: #4ade80;
+    font-weight: 600;
+  }
+
+  /* ════ FEATURE 4: REDSTONE MODE ════ */
+  .redstone-toggle-btn {
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 12px;
+    font-family: var(--font-body);
+    transition: all 0.2s;
+  }
+
+  .redstone-toggle-btn.active {
+    background: rgba(255, 51, 51, 0.2);
+    border-color: rgba(255, 51, 51, 0.5);
+    color: #ff6666;
+  }
+
+  .redstone-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .redstone-toggle-btn.active:hover {
+    background: rgba(255, 51, 51, 0.3);
+  }
+
+  .graph-node.redstone-active {
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.8), inset 0 0 10px rgba(255, 51, 51, 0.4);
+    animation: redstoneGlow 0.8s ease-in-out infinite;
+  }
+
+  @keyframes redstoneGlow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.3); }
+  }
+
+  .redstone-line {
+    animation: redstonePulse 1.2s ease-in-out infinite;
+  }
+
+  @keyframes redstonePulse {
+    0%, 100% { stroke-width: 2; opacity: 0.8; }
+    50% { stroke-width: 3; opacity: 1; }
+  }
+
+  /* ════ FEATURE 5: NBT ITEM TOOLTIP ════ */
+  .nbt-panel {
+    margin-top: 16px;
+    padding: 12px;
+    background: rgba(80, 20, 100, 0.15);
+    border: 2px solid #5a2a7a;
+    border-radius: 4px;
+    font-family: 'VT323', monospace;
+    font-size: 12px;
+  }
+
+  .nbt-title {
+    color: #a88ac9;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .nbt-field {
+    margin: 8px 0;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .nbt-label {
+    color: #8a6aaa;
+    min-width: 100px;
+    font-weight: 600;
+  }
+
+  .nbt-input {
+    flex: 1;
+    padding: 6px 8px;
+    background: rgba(30, 10, 50, 0.5);
+    border: 1px solid #6a3a8a;
+    border-radius: 2px;
+    color: #c9a9e8;
+    font-family: 'VT323', monospace;
+    font-size: 11px;
+  }
+
+  .nbt-input:focus {
+    outline: none;
+    border-color: #9a6aba;
+    box-shadow: 0 0 8px rgba(154, 106, 186, 0.3);
+  }
+
+  .nbt-lore {
+    font-style: italic;
+    color: #9a8aaa;
+  }
+
+  .durability-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(30, 10, 50, 0.8);
+    border: 1px solid #6a3a8a;
+    border-radius: 2px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+
+  .durability-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4ade80, #22c55e);
+    transition: width 0.3s ease;
+  }
+
+  .durability-fill.damaged {
+    background: linear-gradient(90deg, #ff9800, #ff5722);
+  }
+
+  /* ════ FEATURE 6: SHULKER BOX FOLDERS ════ */
+  .shulker-box-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    background: rgba(160, 82, 45, 0.2);
+    border: 1px solid rgba(160, 82, 45, 0.4);
+    border-radius: 6px;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 12px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .shulker-box-button:hover {
+    background: rgba(160, 82, 45, 0.35);
+    border-color: rgba(160, 82, 45, 0.6);
+  }
+
+  .sidebar-folder {
+    margin-bottom: 12px;
+  }
+
+  .sidebar-folder-label {
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s;
+  }
+
+  .sidebar-folder-label::before {
+    content: '📦';
+    font-size: 14px;
+  }
+
+  .sidebar-folder-color {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-folder-items {
+    margin-left: 8px;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    padding-left: 8px;
+  }
+
+  .sidebar-folder-items .sidebar-item {
+    font-size: 12px;
+  }
+
+  .entry-folder-select {
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 12px;
+    font-family: var(--font-body);
+    margin-top: 12px;
+    width: 100%;
+  }
+
 </style>
 </head>
 <body>
@@ -1818,6 +2257,8 @@
 
 <!-- APP -->
 <div id="app-container" class="app-container">
+  <div id="biome-particles"></div>
+  <div id="weather-overlay"></div>
   <div class="app-header">
     <div class="app-header-left">
       <div class="app-header-logo" onclick="showMarketing()">vvd</div>
@@ -1836,6 +2277,7 @@
     <div class="app-header-right">
       <select id="world-switcher" onchange="switchWorld(this.value)" style="padding:6px 10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;color:var(--text);font-size:12px;font-family:var(--font-body);cursor:pointer;margin-right:8px;">
       </select>
+      <button class="weather-toggle-btn" id="weather-btn" onclick="cycleWeather()" title="Cycle weather">🌧️</button>
       <button class="btn-worlds" onclick="openHistoryModal()" style="margin-right: 8px;">History</button>
       <div class="export-menu">
         <button class="btn-worlds" id="export-btn" onclick="toggleExportMenu()">Export</button>
@@ -1855,6 +2297,7 @@
         <input type="text" id="sidebar-search" placeholder="Search entries..." class="sidebar-search-input">
       </div>
       <div id="sidebar-entries"></div>
+      <button class="shulker-box-button" onclick="createShulkerBox()">+ Shulker Box</button>
     </div>
 
     <div class="app-content">
@@ -1925,6 +2368,27 @@
                   <div id="entry-desc" class="desc-editor" contenteditable="true" style="min-height:150px;"></div>
                 </div>
               </div>
+              <div id="nbt-panel" class="nbt-panel" style="display:none;">
+                <div class="nbt-title">NBT Data</div>
+                <div class="nbt-field">
+                  <div class="nbt-label">Lore:</div>
+                  <input type="text" id="nbt-lore" class="nbt-input nbt-lore" placeholder="Item lore description">
+                </div>
+                <div class="nbt-field">
+                  <div class="nbt-label">Power Level:</div>
+                  <input type="number" id="nbt-power" class="nbt-input" min="1" max="10" value="5">
+                </div>
+                <div class="nbt-field">
+                  <div class="nbt-label">Durability:</div>
+                  <input type="number" id="nbt-durability" class="nbt-input" min="0" max="100" value="100">
+                  <div class="durability-bar">
+                    <div class="durability-fill" id="durability-fill" style="width:100%;"></div>
+                  </div>
+                </div>
+              </div>
+              <select id="entry-folder-select" class="entry-folder-select" style="display:none;">
+                <option value="">No Folder</option>
+              </select>
             </div>
             <div id="no-entry-selected" class="no-selection">
               <p>Select an entry from the sidebar to begin editing</p>
@@ -1979,6 +2443,11 @@
               <input type="text" id="doc-title" class="doc-title-input" placeholder="Document Title">
               <textarea id="doc-content" class="doc-textarea" placeholder="Start writing..."></textarea>
               <div class="word-count">Words: <span id="word-count">0</span></div>
+              <div class="hunger-bar-container" id="hunger-bar-container" style="display:none;">
+                <div class="hunger-bar-title">Writing Sprint - Hunger</div>
+                <div class="hunger-icons" id="hunger-icons"></div>
+                <div class="hunger-message" id="hunger-message"></div>
+              </div>
             </div>
             <div id="no-doc-selected" class="no-selection">
               <p>Select or create a document to start writing</p>
@@ -2002,7 +2471,10 @@
       <div class="view-graph">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <h2>Relationship Graph</h2>
-          <button onclick="resetGraphView()" class="btn-new-entry-world">Reset View</button>
+          <div style="display: flex; gap: 8px;">
+            <button onclick="toggleRedstoneMode()" class="redstone-toggle-btn" id="redstone-btn" title="Toggle Redstone Mode">⚡ Redstone Mode</button>
+            <button onclick="resetGraphView()" class="btn-new-entry-world">Reset View</button>
+          </div>
         </div>
         <div class="graph-container">
           <canvas id="graph-canvas" class="graph-canvas"></canvas>
@@ -2233,32 +2705,86 @@ function switchView(view) {
 
 function renderSidebar() {
   const sidebar = document.getElementById('sidebar-entries');
-  const types = {};
+  sidebar.innerHTML = '';
+
+  if (!worldData.shulkerBoxes) {
+    worldData.shulkerBoxes = [];
+  }
+
+  const entriesByFolder = {};
+  const ungroupedEntries = [];
+
   worldData.entries.forEach(e => {
-    if (!types[e.type]) types[e.type] = [];
-    types[e.type].push(e);
+    if (e.folderId) {
+      if (!entriesByFolder[e.folderId]) entriesByFolder[e.folderId] = [];
+      entriesByFolder[e.folderId].push(e);
+    } else {
+      ungroupedEntries.push(e);
+    }
   });
 
-  sidebar.innerHTML = '';
-  Object.keys(types).sort().forEach(type => {
-    const section = document.createElement('div');
-    section.className = 'sidebar-section';
-    section.innerHTML = `<div class="sidebar-group-label">${type}s</div>`;
-    types[type].forEach(e => {
-      const item = document.createElement('div');
-      item.className = 'sidebar-item';
-      item.textContent = e.name;
-      item.onclick = () => selectEntry(e.id);
-      section.appendChild(item);
-    });
-    sidebar.appendChild(section);
+  // Render folders first
+  worldData.shulkerBoxes.forEach(box => {
+    const folderDiv = document.createElement('div');
+    folderDiv.className = 'sidebar-folder';
+
+    const label = document.createElement('div');
+    label.className = 'sidebar-folder-label';
+    label.style.backgroundColor = box.color + '22';
+
+    const colorDot = document.createElement('div');
+    colorDot.className = 'sidebar-folder-color';
+    colorDot.style.backgroundColor = box.color;
+
+    label.appendChild(colorDot);
+    label.appendChild(document.createTextNode(box.name));
+    folderDiv.appendChild(label);
+
+    const itemsDiv = document.createElement('div');
+    itemsDiv.className = 'sidebar-folder-items';
+
+    if (entriesByFolder[box.id]) {
+      entriesByFolder[box.id].forEach(e => {
+        const item = document.createElement('div');
+        item.className = 'sidebar-item';
+        item.textContent = e.name;
+        item.onclick = () => selectEntry(e.id);
+        itemsDiv.appendChild(item);
+      });
+    }
+
+    folderDiv.appendChild(itemsDiv);
+    sidebar.appendChild(folderDiv);
   });
+
+  // Render ungrouped entries by type
+  if (ungroupedEntries.length > 0) {
+    const types = {};
+    ungroupedEntries.forEach(e => {
+      if (!types[e.type]) types[e.type] = [];
+      types[e.type].push(e);
+    });
+
+    Object.keys(types).sort().forEach(type => {
+      const section = document.createElement('div');
+      section.className = 'sidebar-section';
+      section.innerHTML = '<div class="sidebar-group-label">' + type + 's</div>';
+      types[type].forEach(e => {
+        const item = document.createElement('div');
+        item.className = 'sidebar-item';
+        item.textContent = e.name;
+        item.onclick = () => selectEntry(e.id);
+        section.appendChild(item);
+      });
+      sidebar.appendChild(section);
+    });
+  }
 }
 
 function selectEntry(entryId) {
   currentEntry = worldData.entries.find(e => e.id === entryId);
   if (!currentEntry) return;
-  
+
   const thumb = document.getElementById('entry-gradient-thumb');
   if (thumb) thumb.style.background = currentEntry.imageGradient;
   if (!currentEntry) return;
@@ -2276,6 +2802,16 @@ function selectEntry(entryId) {
   renderProperties();
   renderTags();
   renderLinks();
+
+  // FEATURE 1: Detect and set biome
+  const detectedBiome = detectBiome(currentEntry.name, currentEntry.type);
+  setBiome(detectedBiome);
+
+  // FEATURE 5: Show NBT panel for items
+  showNBTPanel();
+
+  // FEATURE 6: Update folder select
+  updateFolderSelects();
 }
 
 function renderProperties() {
@@ -2474,6 +3010,19 @@ function selectDocument(docId) {
   document.getElementById('doc-title').value = currentDoc.title;
   document.getElementById('doc-content').value = currentDoc.content;
   updateWordCount();
+
+  // FEATURE 3: Initialize hunger bar for document
+  const container = document.getElementById('hunger-bar-container');
+  if (container) container.style.display = 'block';
+
+  hungerState.sprintActive = true;
+  hungerState.wordsSinceRestoration = 0;
+  startHungerTimer();
+
+  const textarea = document.getElementById('doc-content');
+  if (textarea) {
+    textarea.addEventListener('input', restoreHungerFromWriting);
+  }
 }
 
 function createNewDocument() {
@@ -2811,7 +3360,13 @@ function renderGraph() {
     });
 
     // Draw edges
-    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+    if (redstoneMode) {
+      ctx.strokeStyle = 'rgba(255, 51, 51, 0.8)';
+      ctx.lineWidth = 2;
+    } else {
+      ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+      ctx.lineWidth = 1;
+    }
     edges.forEach(e => {
       const n1 = nodes.find(n => n.id === e.from);
       const n2 = nodes.find(n => n.id === e.to);
@@ -2825,10 +3380,21 @@ function renderGraph() {
     // Draw nodes
     nodes.forEach(n => {
       const color = typeColors[n.type] || '#666';
-      ctx.fillStyle = graphSelectedNode === n.id ? 'white' : color;
+      let nodeColor = graphSelectedNode === n.id ? 'white' : color;
+
+      if (redstoneMode && worldData.redstoneActive.has(n.id)) {
+        nodeColor = '#ff6666';
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = 'rgba(255, 51, 51, 0.8)';
+      }
+
+      ctx.fillStyle = nodeColor;
       ctx.beginPath();
       ctx.arc(n.x, n.y, 8, 0, Math.PI * 2);
       ctx.fill();
+
+      ctx.shadowBlur = 0;
+
       ctx.fillStyle = 'var(--text)';
       ctx.font = '11px var(--font-body)';
       ctx.textAlign = 'center';
@@ -2849,8 +3415,12 @@ function renderGraph() {
     nodes.forEach(n => {
       const dx = n.x - mx, dy = n.y - my;
       if (Math.sqrt(dx*dx + dy*dy) < 15) {
-        graphSelectedNode = n.id;
-        document.getElementById('graph-selected-info').textContent = n.name + ' (' + n.type + ')';
+        if (redstoneMode) {
+          toggleRedstoneNode(n.id);
+        } else {
+          graphSelectedNode = n.id;
+          document.getElementById('graph-selected-info').textContent = n.name + ' (' + n.type + ')';
+        }
       }
     });
   });
@@ -3385,7 +3955,370 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSidebar();
   showOnboardingModal();
   syncHotbarVisibility();
+  initializeBiomeSystem();
+  initializeHungerBar();
 });
+
+// ════════════════════════════════════════════════════════════════════════════
+// FEATURE 1: DYNAMIC BIOME ENVIRONMENT
+// ════════════════════════════════════════════════════════════════════════════
+
+const BIOME_KEYWORDS = {
+  nether: ['fire', 'lava', 'hell', 'infernal', 'demon', 'shadow', 'dark', 'doom', 'nether'],
+  forest: ['forest', 'wood', 'tree', 'grove', 'jungle', 'wilderness', 'glade'],
+  ocean: ['ocean', 'sea', 'water', 'river', 'lake', 'bay', 'harbor', 'coast', 'tide'],
+  desert: ['desert', 'sand', 'dune', 'mesa', 'arid', 'wasteland'],
+  tundra: ['snow', 'ice', 'frozen', 'tundra', 'winter', 'frost', 'arctic', 'blizzard'],
+  cave: ['cave', 'mine', 'dungeon', 'underground', 'crystal', 'gem', 'tunnel', 'crypt'],
+  end: ['void', 'infinity', 'eternal', 'cosmic', 'astral', 'magic', 'mystical', 'enchant']
+};
+
+let currentBiome = 'overworld';
+
+function detectBiome(name, type) {
+  const text = (name + ' ' + type).toLowerCase();
+  for (const [biome, keywords] of Object.entries(BIOME_KEYWORDS)) {
+    if (keywords.some(kw => text.includes(kw))) {
+      return biome;
+    }
+  }
+  return 'overworld';
+}
+
+function setBiome(biome) {
+  if (currentBiome === biome) return;
+  currentBiome = biome;
+
+  const container = document.getElementById('app-container');
+  container.className = container.className.replace(/biome-\w+/, '');
+  container.classList.add('biome-' + biome);
+
+  createBiomeParticles(biome);
+}
+
+function createBiomeParticles(biome) {
+  const particlesDiv = document.getElementById('biome-particles');
+  particlesDiv.innerHTML = '';
+
+  const particleCount = 20;
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'biome-particle ' + biome;
+
+    const size = Math.random() * 30 + 10;
+    const left = Math.random() * 100;
+    const delay = Math.random() * 4;
+
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.left = left + '%';
+    particle.style.top = '-50px';
+    particle.style.animationDelay = delay + 's';
+
+    particlesDiv.appendChild(particle);
+  }
+}
+
+function initializeBiomeSystem() {
+  setBiome('overworld');
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// FEATURE 2: WEATHER OVERLAY
+// ════════════════════════════════════════════════════════════════════════════
+
+let weatherMode = 'off';
+
+function cycleWeather() {
+  const modes = ['off', 'rain', 'snow'];
+  weatherMode = modes[(modes.indexOf(weatherMode) + 1) % modes.length];
+
+  const overlay = document.getElementById('weather-overlay');
+  const btn = document.getElementById('weather-btn');
+
+  overlay.className = '';
+  btn.classList.remove('active');
+  overlay.innerHTML = '';
+
+  if (weatherMode === 'off') {
+    overlay.classList.remove('active');
+    btn.textContent = '🌧️';
+  } else if (weatherMode === 'rain') {
+    overlay.classList.add('active', 'rain');
+    btn.classList.add('active');
+    btn.textContent = '🌧️ Rain';
+    createRainDrops();
+  } else if (weatherMode === 'snow') {
+    overlay.classList.add('active', 'snow');
+    btn.classList.add('active');
+    btn.textContent = '❄️ Snow';
+    createSnowFlakes();
+  }
+}
+
+function createRainDrops() {
+  const overlay = document.getElementById('weather-overlay');
+  for (let i = 0; i < 100; i++) {
+    const drop = document.createElement('div');
+    drop.className = 'rain-drop';
+    drop.style.left = Math.random() * 100 + '%';
+    drop.style.top = Math.random() * -100 + 'px';
+    drop.style.animationDelay = Math.random() * 1.2 + 's';
+    overlay.appendChild(drop);
+  }
+}
+
+function createSnowFlakes() {
+  const overlay = document.getElementById('weather-overlay');
+  for (let i = 0; i < 80; i++) {
+    const flake = document.createElement('div');
+    flake.className = 'snow-flake';
+    flake.style.left = Math.random() * 100 + '%';
+    flake.style.top = Math.random() * -100 + 'px';
+    flake.style.animationDelay = Math.random() * 6 + 's';
+    overlay.appendChild(flake);
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// FEATURE 3: HUNGER BAR
+// ════════════════════════════════════════════════════════════════════════════
+
+let hungerState = {
+  drumsticks: 10,
+  lastDepletion: 0,
+  wordsSinceRestoration: 0,
+  sprintActive: false
+};
+
+function initializeHungerBar() {
+  hungerState.drumsticks = 10;
+  updateHungerDisplay();
+}
+
+function updateHungerDisplay() {
+  const container = document.getElementById('hunger-bar-container');
+  if (!container) return;
+
+  const iconsDiv = document.getElementById('hunger-icons');
+  iconsDiv.innerHTML = '';
+
+  for (let i = 0; i < 10; i++) {
+    const drumstick = document.createElement('div');
+    drumstick.className = 'hunger-drumstick';
+
+    if (i >= hungerState.drumsticks) {
+      drumstick.classList.add('empty');
+    }
+    if (hungerState.drumsticks <= 3 && i >= hungerState.drumsticks) {
+      drumstick.classList.add('warning');
+    }
+
+    drumstick.textContent = '🍗';
+    iconsDiv.appendChild(drumstick);
+  }
+
+  const msgDiv = document.getElementById('hunger-message');
+  if (hungerState.drumsticks === 0) {
+    msgDiv.textContent = '⚠️ Starving! Write something!';
+    msgDiv.className = 'hunger-message warning';
+  } else if (hungerState.drumsticks === 10) {
+    msgDiv.textContent = '✨ Well Fed! Keep going!';
+    msgDiv.className = 'hunger-message full';
+  } else {
+    msgDiv.textContent = hungerState.drumsticks + ' drumsticks remaining';
+    msgDiv.className = 'hunger-message';
+  }
+}
+
+function startHungerTimer() {
+  hungerState.sprintActive = true;
+  hungerState.lastDepletion = Date.now();
+
+  const timer = setInterval(() => {
+    if (!hungerState.sprintActive || !currentDoc) {
+      clearInterval(timer);
+      return;
+    }
+
+    if (Date.now() - hungerState.lastDepletion > 25000) {
+      if (hungerState.drumsticks > 0) {
+        hungerState.drumsticks--;
+        hungerState.lastDepletion = Date.now();
+        updateHungerDisplay();
+      }
+    }
+  }, 1000);
+}
+
+function restoreHungerFromWriting() {
+  if (!currentDoc) return;
+
+  const content = document.getElementById('doc-content').value;
+  const wordCount = content.trim().split(/\s+/).filter(w => w.length > 0).length;
+  const wordsSince = wordCount - hungerState.wordsSinceRestoration;
+
+  if (wordsSince >= 50) {
+    if (hungerState.drumsticks < 10) {
+      hungerState.drumsticks++;
+      hungerState.wordsSinceRestoration = wordCount;
+      updateHungerDisplay();
+    }
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// FEATURE 4: REDSTONE MODE
+// ════════════════════════════════════════════════════════════════════════════
+
+let redstoneMode = false;
+
+worldData.redstoneActive = new Set();
+
+function toggleRedstoneMode() {
+  redstoneMode = !redstoneMode;
+  const btn = document.getElementById('redstone-btn');
+
+  if (redstoneMode) {
+    btn.classList.add('active');
+    worldData.redstoneActive.clear();
+  } else {
+    btn.classList.remove('active');
+    worldData.redstoneActive.clear();
+  }
+
+  renderGraph();
+}
+
+function toggleRedstoneNode(nodeId) {
+  if (!redstoneMode) return;
+
+  if (worldData.redstoneActive.has(nodeId)) {
+    worldData.redstoneActive.delete(nodeId);
+  } else {
+    worldData.redstoneActive.add(nodeId);
+  }
+
+  renderGraph();
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// FEATURE 5: NBT ITEM TOOLTIP
+// ════════════════════════════════════════════════════════════════════════════
+
+function showNBTPanel() {
+  const nbtPanel = document.getElementById('nbt-panel');
+  if (!nbtPanel || !currentEntry) return;
+
+  if (currentEntry.type === 'item') {
+    nbtPanel.style.display = 'block';
+
+    if (!currentEntry.nbt) {
+      currentEntry.nbt = {
+        lore: '',
+        power: 5,
+        durability: 100
+      };
+    }
+
+    document.getElementById('nbt-lore').value = currentEntry.nbt.lore || '';
+    document.getElementById('nbt-power').value = currentEntry.nbt.power || 5;
+    document.getElementById('nbt-durability').value = currentEntry.nbt.durability || 100;
+
+    updateDurabilityBar();
+  } else {
+    nbtPanel.style.display = 'none';
+  }
+}
+
+function updateDurabilityBar() {
+  const durability = parseInt(document.getElementById('nbt-durability').value);
+  const fill = document.getElementById('durability-fill');
+  fill.style.width = durability + '%';
+
+  if (durability < 25) {
+    fill.classList.add('damaged');
+  } else {
+    fill.classList.remove('damaged');
+  }
+}
+
+function saveNBTData() {
+  if (!currentEntry) return;
+
+  currentEntry.nbt = {
+    lore: document.getElementById('nbt-lore').value,
+    power: parseInt(document.getElementById('nbt-power').value),
+    durability: parseInt(document.getElementById('nbt-durability').value)
+  };
+}
+
+// Add listeners to NBT inputs
+document.addEventListener('DOMContentLoaded', () => {
+  const nbtLore = document.getElementById('nbt-lore');
+  const nbtPower = document.getElementById('nbt-power');
+  const nbtDurability = document.getElementById('nbt-durability');
+
+  if (nbtDurability) {
+    nbtDurability.addEventListener('input', updateDurabilityBar);
+  }
+
+  [nbtLore, nbtPower, nbtDurability].forEach(el => {
+    if (el) el.addEventListener('change', saveNBTData);
+  });
+});
+
+// ════════════════════════════════════════════════════════════════════════════
+// FEATURE 6: SHULKER BOX FOLDERS
+// ════════════════════════════════════════════════════════════════════════════
+
+function createShulkerBox() {
+  const name = prompt('Shulker Box name:');
+  if (!name) return;
+
+  const colors = ['#9c27b0', '#673ab7', '#512da8', '#7b1fa2', '#6a1b9a', '#4a148c'];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+
+  if (!worldData.shulkerBoxes) {
+    worldData.shulkerBoxes = [];
+  }
+
+  worldData.shulkerBoxes.push({
+    id: 'shulker-' + Date.now(),
+    name: name,
+    color: color,
+    entryIds: []
+  });
+
+  renderSidebar();
+  updateFolderSelects();
+}
+
+function updateFolderSelects() {
+  if (!worldData.shulkerBoxes) return;
+
+  const select = document.getElementById('entry-folder-select');
+  if (!select) return;
+
+  const currentFolder = currentEntry?.folderId || '';
+  select.innerHTML = '<option value="">No Folder</option>';
+
+  worldData.shulkerBoxes.forEach(box => {
+    const option = document.createElement('option');
+    option.value = box.id;
+    option.textContent = box.name;
+    if (box.id === currentFolder) option.selected = true;
+    select.appendChild(option);
+  });
+
+  select.style.display = 'block';
+  select.addEventListener('change', (e) => {
+    if (currentEntry) {
+      currentEntry.folderId = e.target.value || null;
+      renderSidebar();
+    }
+  });
+}
 </script>
 
 
