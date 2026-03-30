@@ -507,7 +507,7 @@
   .genre-card-bg { width: 100%; height: 100%; object-fit: cover; }
   .genre-card-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.7) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, transparent 40%, rgba(0,0,0,0.75) 100%);
   }
   .genre-card-label {
     position: absolute; bottom: 12px; left: 12px;
@@ -517,14 +517,28 @@
     padding: 4px 10px; font-size: 12px; font-weight: 500;
     font-family: var(--font-body);
   }
-  /* Genre card background gradients */
-  .gc-fantasy { background: linear-gradient(180deg, #2a4a6a 0%, #1a3a5a 40%, #4a3a2a 70%, #3a2a1a 100%); }
-  .gc-darkfantasy { background: linear-gradient(180deg, #1a2a1a 0%, #3a4a2a 30%, #2a3a1a 70%, #1a1a1a 100%); }
-  .gc-scifi { background: linear-gradient(180deg, #3a4a5a 0%, #4a5a6a 30%, #5a6a7a 60%, #3a4a5a 100%); }
-  .gc-grimdark { background: linear-gradient(180deg, #3a2a1a 0%, #5a4a3a 30%, #6a5a4a 60%, #4a3a2a 100%); }
-  .gc-mythology { background: linear-gradient(180deg, #5a2a1a 0%, #7a3a2a 30%, #9a4a3a 50%, #c06040 70%, #e07840 100%); }
-  .gc-modern { background: linear-gradient(180deg, #3a4a5a 0%, #5a6a7a 40%, #6a7a8a 70%, #9aabba 100%); }
-  .gc-historical { background: linear-gradient(180deg, #2a3a2a 0%, #3a4a2a 40%, #4a5a3a 70%, #5a6a4a 100%); }
+  /* Genre card background images */
+  .gc-fantasy {
+    background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&q=80') center/cover no-repeat, linear-gradient(180deg, #2a4a6a 0%, #3a2a1a 100%);
+  }
+  .gc-darkfantasy {
+    background: url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=400&q=80') center/cover no-repeat, linear-gradient(180deg, #1a2a1a 0%, #1a1a1a 100%);
+  }
+  .gc-scifi {
+    background: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=400&q=80') center/cover no-repeat, linear-gradient(180deg, #3a4a5a 0%, #3a4a5a 100%);
+  }
+  .gc-grimdark {
+    background: url('https://images.unsplash.com/photo-1511497584788-876760111969?w=400&q=80') center/cover no-repeat, linear-gradient(180deg, #3a2a1a 0%, #4a3a2a 100%);
+  }
+  .gc-mythology {
+    background: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=400&q=80') center/cover no-repeat, linear-gradient(180deg, #5a2a1a 0%, #e07840 100%);
+  }
+  .gc-modern {
+    background: url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&q=80') center/cover no-repeat, linear-gradient(180deg, #3a4a5a 0%, #9aabba 100%);
+  }
+  .gc-historical {
+    background: url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=400&q=80') center/cover no-repeat, linear-gradient(180deg, #2a3a2a 0%, #5a6a4a 100%);
+  }
 
   /* ========= MISSION SECTION ========= */
   .mission {
