@@ -897,22 +897,61 @@
   /* Wiki View */
   .view-wiki { display: none; height: 100%; }
   .view-wiki.active { display: block; height: 100%; }
+  .wiki-layout { display: grid; grid-template-columns: 220px 1fr; height: 100%; overflow: hidden; }
   .wiki-sidebar { background: rgba(15,25,38,0.4); border-right: 1px solid rgba(255,255,255,0.08); padding: 16px; overflow-y: auto; backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
   .wiki-search-input { width: 100%; padding: 8px 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); color: var(--text); font-size: 12px; font-family: var(--font-body); margin-bottom: 12px; }
   .wiki-search-input:focus { outline: none; border-color: rgba(61,122,181,0.3); }
   #wiki-list { display: flex; flex-direction: column; gap: 4px; }
-  .wiki-list-item { padding: 8px 10px; color: var(--text2); font-size: 12px; cursor: pointer; border-radius: var(--radius-sm); transition: all .2s; font-family: var(--font-body); }
+  .wiki-list-item { padding: 8px 10px; color: var(--text2); font-size: 12px; cursor: pointer; border-radius: var(--radius-sm); transition: all .2s; font-family: var(--font-body); display: flex; align-items: center; gap: 7px; }
   .wiki-list-item:hover { background: rgba(255,255,255,0.08); color: var(--text); }
-  
-  .wiki-content { overflow-y: auto; padding: 32px; }
-  #wiki-page h1 { font-family: var(--font-title); font-size: 28px; color: white; margin-bottom: 12px; }
-  .wiki-type { display: inline-block; background: rgba(61,122,181,0.2); color: #7eb8f0; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-bottom: 16px; }
-  .wiki-props { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 12px; margin: 16px 0; font-size: 12px; color: var(--text2); font-family: var(--font-body); }
-  .wiki-props div { margin-bottom: 8px; }
-  #wiki-page p { color: var(--text2); line-height: 1.8; margin: 16px 0; font-family: var(--font-body); }
-  .wiki-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 16px 0; }
-  .wiki-related { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 12px; text-align: center; cursor: pointer; font-size: 12px; color: var(--accent); transition: all .2s; font-family: var(--font-body); }
-  .wiki-related:hover { background: rgba(255,255,255,0.1); border-color: rgba(61,122,181,0.3); }
+  .wiki-list-item.active { background: rgba(61,122,181,0.15); color: var(--accent); }
+
+  /* Wiki page chrome */
+  .wiki-content { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+  .wiki-topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 24px; border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; }
+  .wiki-topbar-tabs { display: flex; gap: 4px; }
+  .wiki-tab-btn { display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 6px; font-size: 12px; color: var(--text2); cursor: pointer; border: 1px solid transparent; transition: all .15s; font-family: var(--font-body); }
+  .wiki-tab-btn:hover { background: rgba(255,255,255,0.07); color: var(--text); }
+  .wiki-tab-btn.active { background: rgba(61,122,181,0.18); color: var(--accent); border-color: rgba(61,122,181,0.3); }
+  .wiki-tab-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .wiki-topbar-actions { display: flex; gap: 4px; }
+  .wiki-action-btn { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 6px; cursor: pointer; color: var(--text2); border: 1px solid transparent; transition: all .15s; }
+  .wiki-action-btn:hover { background: rgba(255,255,255,0.07); color: var(--text); border-color: rgba(255,255,255,0.1); }
+  .wiki-action-btn svg { width: 14px; height: 14px; }
+
+  /* Wiki page body */
+  .wiki-page-body { flex: 1; overflow-y: auto; padding: 32px 40px; max-width: 780px; width: 100%; margin: 0 auto; position: relative; padding-bottom: 80px; }
+  .wiki-entry-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; gap: 16px; }
+  .wiki-entry-header-text { flex: 1; }
+  .wiki-entry-title { font-family: var(--font-title); font-size: 30px; font-style: italic; color: white; line-height: 1.2; margin-bottom: 10px; }
+  .wiki-aliases-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .wiki-aliases-label { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text3); font-family: var(--font-body); }
+  .wiki-aliases-label svg { width: 12px; height: 12px; }
+  .wiki-alias-tag { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2px 9px; font-size: 11px; color: var(--text2); font-family: var(--font-body); }
+  .wiki-type-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(61,122,181,0.18); color: #7eb8f0; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; font-family: var(--font-body); }
+  .wiki-type-badge svg { width: 11px; height: 11px; }
+  .wiki-entry-thumb { width: 64px; height: 64px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); }
+  .wiki-entry-thumb svg { width: 28px; height: 28px; opacity: 0.5; }
+  .wiki-section-title { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text3); margin: 28px 0 10px; font-family: var(--font-body); border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 6px; }
+  .wiki-body-text { color: var(--text2); line-height: 1.9; font-size: 13.5px; font-family: var(--font-body); }
+  .wiki-body-text .wlink { color: var(--accent); cursor: pointer; }
+  .wiki-body-text .wlink:hover { text-decoration: underline; }
+  .wiki-props-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
+  .wiki-prop-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 12px; font-size: 12px; font-family: var(--font-body); }
+  .wiki-prop-key { color: var(--text3); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+  .wiki-prop-val { color: var(--text); font-weight: 500; }
+  .wiki-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin: 12px 0; }
+  .wiki-related { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 8px; padding: 10px 12px; cursor: pointer; font-size: 12px; color: var(--accent); transition: all .2s; font-family: var(--font-body); display: flex; align-items: center; gap: 6px; }
+  .wiki-related:hover { background: rgba(255,255,255,0.08); border-color: rgba(61,122,181,0.3); }
+  .wiki-related svg { width: 11px; height: 11px; flex-shrink: 0; }
+  .wiki-empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text3); font-family: var(--font-body); font-size: 13px; gap: 10px; }
+  .wiki-empty-state svg { width: 36px; height: 36px; opacity: 0.3; }
+
+  /* Wiki floating toolbar */
+  .wiki-toolbar { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 2px; background: rgba(15,25,38,0.9); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 5px 6px; backdrop-filter: blur(16px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+  .wiki-tool-btn { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 6px; cursor: pointer; color: var(--text2); transition: all .15s; font-family: serif; font-size: 14px; font-weight: 700; }
+  .wiki-tool-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+  .wiki-tool-btn svg { width: 14px; height: 14px; }
   
   /* Quill View */
   .view-quill { display: none; height: 100%; }
@@ -2458,10 +2497,26 @@
       <div class="view-wiki">
         <div class="wiki-layout">
           <div class="wiki-sidebar">
-            <input type="text" id="wiki-search" placeholder="Search..." class="wiki-search-input">
+            <input type="text" id="wiki-search" placeholder="Search entries..." class="wiki-search-input">
             <div id="wiki-list"></div>
           </div>
           <div class="wiki-content">
+            <div class="wiki-topbar">
+              <div class="wiki-topbar-tabs">
+                <div class="wiki-tab-btn active" id="wiki-tab-read" onclick="setWikiTab('read')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  Wiki
+                </div>
+                <div class="wiki-tab-btn" id="wiki-tab-edit" onclick="setWikiTab('edit')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+                  Edit
+                </div>
+              </div>
+              <div class="wiki-topbar-actions">
+                <div class="wiki-action-btn" title="Open in World"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+                <div class="wiki-action-btn" title="View on map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg></div>
+              </div>
+            </div>
             <div id="wiki-page"></div>
           </div>
         </div>
@@ -2731,7 +2786,7 @@ function switchView(view) {
   }
 
   if (view === 'map') renderMap();
-  if (view === 'wiki') renderWikiList();
+  if (view === 'wiki') { renderWikiList(); if (!currentWikiEntryId) showWikiEmpty(); }
   if (view === 'quill') renderDocsList();
   if (view === 'home') updateStats();
   if (view === 'timeline') renderTimeline();
@@ -2989,16 +3044,44 @@ function renderMap() {
     svg.innerHTML = '<svg viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><defs><pattern id="waterPattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0,20 Q10,15 20,20 T40,20" stroke="rgba(100,150,200,0.3)" stroke-width="1" fill="none"/></pattern></defs><rect width="800" height="520" fill="#1a3d2e"/><rect width="800" height="520" fill="url(#waterPattern)"/><polygon points="150,80 200,60 220,120 180,140" fill="#3a5a4a" opacity="0.7"/><polygon points="300,150 350,100 400,140 370,180" fill="#2a6a5a" opacity="0.8"/><polygon points="550,200 620,150 680,210 640,260" fill="#3a5a4a" opacity="0.7"/><circle cx="100" cy="400" r="60" fill="#4a6a3a" opacity="0.6"/><circle cx="650" cy="350" r="80" fill="#3a6a4a" opacity="0.7"/><path d="M250,300 Q300,250 350,300 T450,300" stroke="#2a5a6a" stroke-width="3" fill="none" opacity="0.5"/><path d="M500,400 Q520,350 550,400" stroke="#2a5a6a" stroke-width="2" fill="none" opacity="0.4"/><g id="compass-rose" transform="translate(700,80)"><circle cx="0" cy="0" r="25" fill="none" stroke="rgba(200,160,80,0.5)" stroke-width="1"/><path d="M0,-20 L5,-5 L0,0 L-5,-5 Z" fill="rgba(200,160,80,0.7)"/><text x="0" y="-30" text-anchor="middle" font-size="12" fill="rgba(200,160,80,0.6)">N</text></g></svg>' + '<g id="map-pins"></g>';
   }
 
+  // SVG icon paths for each entry type (14px viewBox icons for map pins)
+  const PIN_ICON_PATHS = {
+    character: '<circle cx="7" cy="4.5" r="3"/><path d="M1 13a6 6 0 0112 0"/>',
+    location:  '<path d="M7 1a4 4 0 014 4c0 3.5-4 8-4 8S3 8.5 3 5a4 4 0 014-4z"/><circle cx="7" cy="5" r="1.5" fill="white" stroke="none"/>',
+    item:      '<path d="M2 12L10 4"/><line x1="9" y1="1" x2="13" y2="5"/><line x1="5" y1="9" x2="3" y2="11"/>',
+    creature:  '<circle cx="7" cy="6" r="4"/><circle cx="5.5" cy="5.5" r=".8" fill="white" stroke="none"/><circle cx="8.5" cy="5.5" r=".8" fill="white" stroke="none"/><path d="M5 8c.5.8 1.2 1.2 2 1.2s1.5-.4 2-1.2"/>',
+    faction:   '<line x1="2" y1="1" x2="2" y2="13"/><path d="M2 1l10 3-10 4"/>',
+    event:     '<path d="M8 1L3 8h5l-1 5 6-7H8l0-5z"/>',
+  };
+
   const pins = document.getElementById('map-pins');
   worldData.mapPins.forEach(pin => {
+    const entry = worldData.entries.find(e => e.id === pin.entryId);
+    const iconPaths = entry ? (PIN_ICON_PATHS[entry.type] || PIN_ICON_PATHS.location) : PIN_ICON_PATHS.location;
     const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
     g.setAttribute('class', 'map-pin');
     g.setAttribute('transform', `translate(${pin.x * 8}, ${pin.y * 5.2})`);
-    g.innerHTML = `<rect x="-16" y="-16" width="32" height="32" rx="6" fill="rgba(20,35,50,0.85)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-      <text y="0" text-anchor="middle" dy="0.3em" font-size="14" fill="white">${pin.icon}</text>`;
+    const label = pin.label || '';
+    const labelWidth = Math.max(label.length * 6 + 12, 40);
+    g.innerHTML = `
+      <rect x="-16" y="-38" width="32" height="32" rx="7" fill="rgba(14,24,38,0.88)" stroke="rgba(255,255,255,0.28)" stroke-width="1.5" filter="url(#pinShadow)"/>
+      <svg x="-7" y="-29" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${iconPaths}</svg>
+      <line x1="0" y1="-6" x2="0" y2="0" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="2.5" fill="rgba(255,255,255,0.5)" stroke="none"/>
+      <rect x="${-labelWidth/2}" y="4" width="${labelWidth}" height="14" rx="4" fill="rgba(14,24,38,0.7)"/>
+      <text x="0" y="14" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.9)" font-family="system-ui,sans-serif" font-weight="600" letter-spacing="0.3">${label}</text>`;
     g.onclick = () => showMapPopup(pin);
     pins.appendChild(g);
   });
+
+  // Add drop-shadow filter definition if not present
+  const defs = svg.querySelector('defs') || (() => {
+    const d = document.createElementNS('http://www.w3.org/2000/svg','defs');
+    svg.insertBefore(d, svg.firstChild); return d;
+  })();
+  if (!svg.querySelector('#pinShadow')) {
+    defs.innerHTML += `<filter id="pinShadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.5)"/></filter>`;
+  }
 }
 
 function toggleMapAddMode() {
@@ -3034,27 +3117,112 @@ document.getElementById('world-map')?.addEventListener('click', (e) => {
   }
 });
 
+let currentWikiEntryId = null;
+let wikiTab = 'read';
+
+function showWikiEmpty() {
+  const page = document.getElementById('wiki-page');
+  page.innerHTML = `<div class="wiki-page-body"><div class="wiki-empty-state">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+    <span>Select an entry to view its wiki page</span>
+  </div></div>`;
+}
+
+function setWikiTab(tab) {
+  wikiTab = tab;
+  document.getElementById('wiki-tab-read').classList.toggle('active', tab === 'read');
+  document.getElementById('wiki-tab-edit').classList.toggle('active', tab === 'edit');
+  if (currentWikiEntryId) renderWikiPage(currentWikiEntryId);
+}
+
 function renderWikiList() {
   const list = document.getElementById('wiki-list');
-  list.innerHTML = worldData.entries.map(e =>
-    `<div class="wiki-list-item" onclick="renderWikiPage('${e.id}')">${e.name}</div>`
+  const q = (document.getElementById('wiki-search')?.value || '').toLowerCase();
+  const entries = worldData.entries.filter(e => !q || e.name.toLowerCase().includes(q));
+  list.innerHTML = entries.map(e =>
+    `<div class="wiki-list-item${e.id === currentWikiEntryId ? ' active' : ''}" onclick="renderWikiPage('${e.id}')">${TYPE_ICONS[e.type] || ''}<span>${e.name}</span></div>`
   ).join('');
+  if (!entries.length) list.innerHTML = `<div style="color:var(--text3);font-size:12px;padding:8px 10px;font-family:var(--font-body)">No entries found</div>`;
 }
+
+const TYPE_THUMB_COLORS = {
+  character: 'linear-gradient(135deg,#2d5a3a,#4a8a5a)',
+  location:  'linear-gradient(135deg,#2a4a7a,#3a6aaa)',
+  item:      'linear-gradient(135deg,#5a4a2a,#8a6a3a)',
+  creature:  'linear-gradient(135deg,#5a2a2a,#8a4a3a)',
+  faction:   'linear-gradient(135deg,#3a2a5a,#5a3a8a)',
+  event:     'linear-gradient(135deg,#5a3020,#8a5030)',
+};
+const TYPE_ICONS_LARGE = {
+  character: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="8" r="5"/><path d="M3 21a9 9 0 0118 0"/></svg>',
+  location:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z"/><circle cx="12" cy="9" r="2.5" fill="currentColor" stroke="none" opacity=".5"/></svg>',
+  item:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 21l14-14"/><path d="M14.5 3.5l6 6"/><path d="M8 16l-2 3"/></svg>',
+  creature:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="10" r="6"/><circle cx="10" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="14" cy="9" r="1" fill="currentColor" stroke="none"/><path d="M9 13.5c.8 1 1.6 1.5 3 1.5s2.2-.5 3-1.5"/></svg>',
+  faction:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="3" x2="4" y2="21"/><path d="M4 3l14 4-14 6"/></svg>',
+  event:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M13 2L5 14h8l-2 8 9-12h-8l1-8z"/></svg>',
+};
 
 function renderWikiPage(entryId) {
   const entry = worldData.entries.find(e => e.id === entryId);
   if (!entry) return;
+  currentWikiEntryId = entryId;
+  renderWikiList(); // refresh active state
 
   const page = document.getElementById('wiki-page');
-  const links = entry.linkedEntries.map(id => {
-    const e = worldData.entries.find(x => x.id === id);
-    return e ? `<div class="wiki-related" onclick="renderWikiPage('${e.id}')">${e.name}</div>` : '';
-  }).join('');
 
-  page.innerHTML = `<h1>${entry.name}</h1><span class="wiki-type">${entry.type}</span>
-    <div class="wiki-props">${entry.properties.map(p => `<div><strong>${p.key}:</strong> ${p.value}</div>`).join('')}</div>
-    <p>${entry.description}</p>
-    ${links ? `<h3>Related</h3><div class="wiki-links">${links}</div>` : ''}`;
+  if (wikiTab === 'edit') {
+    // Edit mode: redirect to world view for full edit
+    page.innerHTML = `<div class="wiki-page-body">
+      <div class="wiki-entry-title">${entry.name}</div>
+      <p style="color:var(--text2);font-size:13px;font-family:var(--font-body);margin-top:12px">Switch to the <strong style="color:var(--accent)">Entries</strong> view to edit this entry's properties and description.</p>
+      <button onclick="selectEntry('${entry.id}');switchView('world')" style="margin-top:16px;padding:8px 16px;background:rgba(61,122,181,0.2);border:1px solid rgba(61,122,181,0.3);border-radius:8px;color:var(--accent);font-size:12px;font-family:var(--font-body);cursor:pointer">Open in Entries view</button>
+    </div>`;
+    return;
+  }
+
+  const thumbBg = TYPE_THUMB_COLORS[entry.type] || 'linear-gradient(135deg,#2a2a3a,#3a3a5a)';
+  const thumbIcon = TYPE_ICONS_LARGE[entry.type] || '';
+
+  const propsHtml = entry.properties.length ? `
+    <div class="wiki-section-title">Details</div>
+    <div class="wiki-props-grid">${entry.properties.map(p =>
+      `<div class="wiki-prop-item"><div class="wiki-prop-key">${p.key}</div><div class="wiki-prop-val">${p.value || '—'}</div></div>`
+    ).join('')}</div>` : '';
+
+  const linksHtml = entry.linkedEntries.length ? (() => {
+    const items = entry.linkedEntries.map(id => {
+      const e = worldData.entries.find(x => x.id === id);
+      return e ? `<div class="wiki-related" onclick="renderWikiPage('${e.id}')">${TYPE_ICONS[e.type] || ''}<span>${e.name}</span></div>` : '';
+    }).join('');
+    return `<div class="wiki-section-title">Related Entries</div><div class="wiki-links">${items}</div>`;
+  })() : '';
+
+  const typeLabel = entry.type.charAt(0).toUpperCase() + entry.type.slice(1);
+
+  page.innerHTML = `<div class="wiki-page-body">
+    <div class="wiki-entry-header">
+      <div class="wiki-entry-header-text">
+        <div class="wiki-entry-title">${entry.name}</div>
+        <div class="wiki-aliases-row">
+          <div class="wiki-aliases-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span class="wiki-type-badge">${TYPE_ICONS[entry.type] || ''}${typeLabel}</span>
+        </div>
+      </div>
+      <div class="wiki-entry-thumb" style="background:${thumbBg}">${thumbIcon}</div>
+    </div>
+    ${entry.description ? `<div class="wiki-section-title">Overview</div><div class="wiki-body-text">${entry.description}</div>` : ''}
+    ${propsHtml}
+    ${linksHtml}
+    <div class="wiki-toolbar">
+      <div class="wiki-tool-btn" title="Insert link" onclick="renderWikiPage('${entry.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="wiki-tool-btn" title="Heading" style="font-family:Georgia,serif;font-size:13px;font-weight:700">H</div>
+      <div class="wiki-tool-btn" title="Insert image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+      <div class="wiki-tool-btn" title="Insert entry" onclick="setWikiTab('edit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+      <div class="wiki-tool-btn" title="Info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></div>
+    </div>
+  </div>`;
 }
 
 function renderDocsList() {
@@ -3126,11 +3294,8 @@ document.getElementById('sidebar-search')?.addEventListener('input', (e) => {
   });
 });
 
-document.getElementById('wiki-search')?.addEventListener('input', (e) => {
-  const query = e.target.value.toLowerCase();
-  document.querySelectorAll('.wiki-list-item').forEach(item => {
-    item.style.display = item.textContent.toLowerCase().includes(query) ? '' : 'none';
-  });
+document.getElementById('wiki-search')?.addEventListener('input', () => {
+  renderWikiList();
 });
 
 document.getElementById('tag-input')?.addEventListener('keypress', (e) => {
