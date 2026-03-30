@@ -1880,8 +1880,10 @@ function switchView(view) {
 
   if (view === 'map' || view === 'wiki' || view === 'timeline' || view === 'graph' || view === 'scenes' || view === 'board') {
     document.querySelector('.app-sidebar').style.display = 'none';
+    document.querySelector('.app-main').style.gridTemplateColumns = '1fr';
   } else {
     document.querySelector('.app-sidebar').style.display = '';
+    document.querySelector('.app-main').style.gridTemplateColumns = '220px 1fr';
   }
 
   if (view === 'map') renderMap();
