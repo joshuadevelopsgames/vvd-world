@@ -1349,10 +1349,12 @@
     font-size: 12px; color: rgba(255,255,255,0.48); transition: color .2s;
   }
   .mc-music-btn {
-    background: none; border: none; color: rgba(255,255,255,0.32); cursor: pointer;
-    font-size: 13px; padding: 0 2px; line-height: 1; transition: color .15s; flex-shrink: 0;
+    background: none; border: none; color: rgba(255,255,255,0.65); cursor: pointer;
+    padding: 0 3px; line-height: 1; transition: color .15s; flex-shrink: 0;
+    display: flex; align-items: center;
   }
-  .mc-music-btn:hover { color: rgba(255,255,255,0.85); }
+  .mc-music-btn svg { width: 14px; height: 14px; display: block; }
+  .mc-music-btn:hover { color: rgba(255,255,255,0.95); }
 
   /* ── Entry Creation Modal ── */
   .crafting-modal {
@@ -4601,8 +4603,8 @@ function updateFolderSelects() {
 <div id="mc-music-player" class="mc-music-player" title="Minecraft background music">
   <span class="mc-music-note"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 12V5l7-2v7"/><circle cx="4.5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="11.5" cy="10" r="1.5" fill="currentColor" stroke="none"/></svg></span>
   <span class="mc-music-track-name" id="mc-music-track-name">Click anywhere to play</span>
-  <button class="mc-music-btn" onclick="mcMusicSkip()" title="Next track"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 3v10l5-5-5-5zm5 0v10l5-5-5-5z"/><rect x="12.5" y="3" width="1.5" height="10" rx=".75"/></svg></button>
-  <button class="mc-music-btn" id="mc-music-mute-btn" onclick="mcMusicToggleMute()" title="Mute / Unmute"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 6H5L9 3v10L5 10H2z" fill="currentColor" stroke="none"/><path d="M11 5a4 4 0 010 6"/><path d="M13 3a7 7 0 010 10"/></svg></button>
+  <button class="mc-music-btn" onclick="mcMusicSkip()" title="Next track"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 3v10l5-5-5-5zm5 0v10l5-5-5-5z"/><rect x="12.5" y="3" width="1.5" height="10" rx=".75"/></svg></button>
+  <button class="mc-music-btn" id="mc-music-mute-btn" onclick="mcMusicToggleMute()" title="Mute / Unmute"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 6H5L9 3v10L5 10H2z" fill="currentColor" stroke="none"/><path d="M11 5a4 4 0 010 6"/><path d="M13 3a7 7 0 010 10"/></svg></button>
 </div>
 
 <!-- ACHIEVEMENT TOAST -->
