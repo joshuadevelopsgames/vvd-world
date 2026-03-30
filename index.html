@@ -3767,43 +3767,46 @@ function clearBoard() {
    MINECRAFT FEATURES
    ============================================= */
 
-// ── Block Sounds (Web Audio API) ──
+// ── Block Sounds (Real Minecraft Audio via assets.mcasset.cloud) ──
 const mcAudio = (function() {
-  let ctx = null;
-  function getCtx() {
-    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
-    return ctx;
-  }
-  function beep(freq, type, dur, vol, detune) {
+  const CDN = 'https://assets.mcasset.cloud/1.21.11/assets/minecraft/sounds/';
+  const STONE = ['dig/stone1','dig/stone2','dig/stone3','dig/stone4'];
+
+  function play(path, vol) {
     try {
-      const c = getCtx();
-      const o = c.createOscillator();
-      const g = c.createGain();
-      o.connect(g); g.connect(c.destination);
-      o.type = type || 'square';
-      o.frequency.setValueAtTime(freq, c.currentTime);
-      if (detune) o.detune.setValueAtTime(detune, c.currentTime);
-      g.gain.setValueAtTime(vol || 0.08, c.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + (dur || 0.1));
-      o.start(c.currentTime);
-      o.stop(c.currentTime + (dur || 0.1));
-    } catch(e){}
+      const a = new Audio(CDN + path + '.ogg');
+      a.volume = (vol !== undefined) ? vol : 0.6;
+      a.play().catch(() => {});
+    } catch(e) {}
   }
+  function rnd(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
   return {
-    click()       { beep(440,'square',.05,.07); },
-    place()       { beep(220,'triangle',.12,.1); setTimeout(()=>beep(260,'triangle',.08,.07),60); },
-    openChest()   { beep(330,'sine',.08,.08); setTimeout(()=>beep(440,'sine',.1,.07),80); setTimeout(()=>beep(550,'sine',.12,.06),160); },
-    achievement() {
-      [523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,'sine',.18,.1),i*110));
-    },
-    error()       { beep(180,'sawtooth',.15,.06); setTimeout(()=>beep(150,'sawtooth',.15,.06),160); }
+    // Light UI click — for marketing/menu page navigation
+    menuClick()   { play('random/click_stereo', 0.35); },
+    // In-app general UI click (tabs, options, selections)
+    click()       { play('random/click_stereo', 0.5); },
+    // Hotbar / view navigation — satisfying stone-block thunk
+    place()       { play(rnd(STONE), 0.55); },
+    // Entry creation — iconic chest creak
+    openChest()   { play('block/chest/open', 0.7); },
+    // Achievement toast — Minecraft challenge-complete fanfare
+    achievement() { play('ui/toast/challenge_complete', 0.75); },
+    // Error / invalid action — player hurt impact
+    error()       { play('damage/hit1', 0.45); }
   };
 })();
 
-// Attach click sound to all buttons inside app
+// Attach in-app click sound to all interactions inside the app
 document.addEventListener('click', e => {
   const inApp = e.target.closest('#app-container');
   if (inApp) mcAudio.click();
+}, true);
+
+// Attach lighter menu click sound to marketing/landing page interactions
+document.addEventListener('click', e => {
+  if (e.target.closest('#app-container')) return;
+  if (e.target.closest('button, a, [onclick], .feature-tab, label')) mcAudio.menuClick();
 }, true);
 
 // ── Hotbar ──
